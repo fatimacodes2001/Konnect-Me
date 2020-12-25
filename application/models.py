@@ -8,6 +8,8 @@ from django.db import models
 
 
 class Album(models.Model):
+    objects = models.Manager()
+
     album_id = models.AutoField(primary_key=True)
     page_email = models.ForeignKey('Page', models.DO_NOTHING, db_column='page_email', blank=True, null=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email', blank=True, null=True)
@@ -21,6 +23,8 @@ class Album(models.Model):
 
 
 class AppliesFor(models.Model):
+    objects = models.Manager()
+
     job = models.OneToOneField('Job', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
 
@@ -31,6 +35,8 @@ class AppliesFor(models.Model):
 
 
 class Interests(models.Model):
+    objects = models.Manager()
+
     email = models.OneToOneField('RegularProfile', models.DO_NOTHING, db_column='email', primary_key=True)
     interest = models.CharField(max_length=45)
 
@@ -41,6 +47,8 @@ class Interests(models.Model):
 
 
 class Job(models.Model):
+
+    objects = models.Manager()
     job_id = models.AutoField(primary_key=True)
     page_email = models.ForeignKey('Page', models.DO_NOTHING, db_column='page_email')
     type = models.CharField(max_length=50, blank=True, null=True)
@@ -57,6 +65,8 @@ class Job(models.Model):
 
 
 class Page(models.Model):
+    objects = models.Manager()
+
     email = models.CharField(primary_key=True, max_length=50)
     password = models.CharField(max_length=45, blank=True, null=True)
     businessid = models.IntegerField(db_column='businessId', blank=True, null=True)  # Field name made lowercase.
@@ -73,6 +83,7 @@ class Page(models.Model):
 
 
 class PageFollowsPage(models.Model):
+    objects = models.Manager()
     follower_email = models.OneToOneField(Page, models.DO_NOTHING, db_column='follower_email', primary_key=True)
     followed_page_email = models.ForeignKey(Page, models.DO_NOTHING, db_column='followed_page_email',related_name='+')
 
@@ -83,6 +94,7 @@ class PageFollowsPage(models.Model):
 
 
 class PageFollowsProfile(models.Model):
+    objects = models.Manager()
     follower_page_email = models.OneToOneField(Page, models.DO_NOTHING, db_column='follower_page_email', primary_key=True)
     followed_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='followed_profile_email')
 
@@ -93,6 +105,7 @@ class PageFollowsProfile(models.Model):
 
 
 class PageLikesPhotos(models.Model):
+    objects = models.Manager()
     update = models.OneToOneField('Photos', models.DO_NOTHING, primary_key=True)
     page_email = models.ForeignKey(Page, models.DO_NOTHING, db_column='page_email')
     photo_like_id = models.IntegerField()
@@ -104,6 +117,7 @@ class PageLikesPhotos(models.Model):
 
 
 class PageLikesStatus(models.Model):
+    objects = models.Manager()
     update = models.OneToOneField('Photos', models.DO_NOTHING, primary_key=True)
     page_email = models.ForeignKey(Page, models.DO_NOTHING, db_column='page_email')
     status_like_id = models.IntegerField()
@@ -115,6 +129,7 @@ class PageLikesStatus(models.Model):
 
 
 class Photos(models.Model):
+    objects = models.Manager()
     update_id = models.AutoField(primary_key=True)
     status_id = models.IntegerField()
     album = models.ForeignKey(Album, models.DO_NOTHING)
@@ -132,6 +147,7 @@ class Photos(models.Model):
 
 
 class ProfileFollowsPage(models.Model):
+    objects = models.Manager()
     page_email = models.OneToOneField(Page, models.DO_NOTHING, db_column='page_email', primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
 
@@ -142,6 +158,7 @@ class ProfileFollowsPage(models.Model):
 
 
 class ProfileFollowsProfile(models.Model):
+    objects = models.Manager()
     follower_email = models.OneToOneField('RegularProfile', models.DO_NOTHING, db_column='follower_email', primary_key=True)
     followed_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='followed_profile_email',related_name='+')
 
@@ -152,6 +169,7 @@ class ProfileFollowsProfile(models.Model):
 
 
 class ProfileLikesPhotos(models.Model):
+    objects = models.Manager()
     update = models.OneToOneField(Photos, models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     photo_like_id = models.IntegerField()
@@ -163,6 +181,7 @@ class ProfileLikesPhotos(models.Model):
 
 
 class ProfileLikesStatus(models.Model):
+    objects = models.Manager()
     update = models.OneToOneField('Status', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     status_like_id = models.IntegerField()
@@ -174,6 +193,7 @@ class ProfileLikesStatus(models.Model):
 
 
 class ProfileSharesPhotos(models.Model):
+    objects = models.Manager()
     update = models.OneToOneField(Photos, models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     share_id = models.IntegerField()
@@ -185,6 +205,9 @@ class ProfileSharesPhotos(models.Model):
 
 
 class ProfileSharesStatus(models.Model):
+
+    objects = models.Manager()
+
     update = models.OneToOneField('Status', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     share_id = models.IntegerField()
@@ -196,6 +219,8 @@ class ProfileSharesStatus(models.Model):
 
 
 class RegularProfile(models.Model):
+    objects = models.Manager()
+
     email = models.CharField(primary_key=True, max_length=50)
     password = models.CharField(max_length=45, blank=True, null=True)
     firstname = models.CharField(db_column='firstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
@@ -218,6 +243,8 @@ class RegularProfile(models.Model):
 
 
 class Skills(models.Model):
+
+    objects = models.Manager()
     email = models.OneToOneField(RegularProfile, models.DO_NOTHING, db_column='email', primary_key=True)
     skill = models.CharField(max_length=45)
 
@@ -228,6 +255,7 @@ class Skills(models.Model):
 
 
 class Status(models.Model):
+    objects = models.Manager()
     update_id = models.AutoField(primary_key=True)
     status_id = models.IntegerField()
     regular_profile_email = models.ForeignKey(RegularProfile, models.DO_NOTHING, db_column='regular_profile_email', blank=True, null=True)

@@ -4,6 +4,8 @@ from django.contrib import messages
 
 from operator import itemgetter
 import mysql.connector
+from .models import RegularProfile
+
 # Create your views here.
 
 def welcome(request):
@@ -23,11 +25,10 @@ def login(request):
    mycursor.execute("select email from regular_profile")
 
    e = []
+   
 
    for each in mycursor:
       e.append(each)
-
-
 
 
    
