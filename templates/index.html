@@ -1,4 +1,7 @@
 
+{% load static %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +10,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" type="text/css" href="css/animate.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
-<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css">
-<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+
+<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/jquery.mCustomScrollbar.min.css' %">
+<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
+
+
+
 </head>
 
 
@@ -31,7 +39,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="index.html" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
 						<form>
@@ -43,13 +51,13 @@
 						<ul>
 							<li>
 								<a href="index.html" title="">
-									<span><img src="images/icon1.png" alt=""></span>
+									<span><img src="{% static 'images/icon1.png'  %}" alt=""></span>
 									Home
 								</a>
 							</li>
 							<li>
 								<a href="companies.html" title="">
-									<span><img src="images/icon2.png" alt=""></span>
+									<span><img src="{% static 'images/icon2.png'  %}" alt=""></span>
 									Companies
 								</a>
 								<ul>
@@ -59,13 +67,13 @@
 							</li>
 							<li>
 								<a href="projects.html" title="">
-									<span><img src="images/icon3.png" alt=""></span>
+									<span><img src="{% static 'images/icon3.png'  %}" alt=""></span>
 									Projects
 								</a>
 							</li>
 							<li>
 								<a href="profiles.html" title="">
-									<span><img src="images/icon4.png" alt=""></span>
+									<span><img src="{% static 'images/icon4.png'  %}" alt=""></span>
 									Profiles
 								</a>
 								<ul>
@@ -75,13 +83,13 @@
 							</li>
 							<li>
 								<a href="jobs.html" title="">
-									<span><img src="images/icon5.png" alt=""></span>
+									<span><img src="{% static 'images/icon5.png'  %}" alt=""></span>
 									Jobs
 								</a>
 							</li>
 							<li>
 								<a href="#" title="" class="not-box-open">
-									<span><img src="images/icon6.png" alt=""></span>
+									<span><img src="{% static 'images/icon6.png'  %}" alt=""></span>
 									Messages
 								</a>
 								<div class="notification-box msg">
@@ -92,7 +100,7 @@
 									<div class="nott-list">
 										<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img1.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img1.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a> </h3>
@@ -102,7 +110,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
@@ -112,7 +120,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img3.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img3.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
@@ -128,7 +136,7 @@
 							</li>
 							<li>
 								<a href="#" title="" class="not-box-open">
-									<span><img src="images/icon7.png" alt=""></span>
+									<span><img src="{% static 'images/icon7.png'  %}" alt=""></span>
 									Notification
 								</a>
 								<div class="notification-box">
@@ -139,7 +147,7 @@
 									<div class="nott-list">
 										<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img1.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img1.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -148,7 +156,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -157,7 +165,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img3.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img3.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -166,7 +174,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png'  %}" alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -246,14 +254,32 @@
 												<div class="usr-pic">
 													<img src="http://via.placeholder.com/100x100" alt="">
 												</div>
+
+
+
+
+
+
+
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>John Doe</h3>
+
+
+												<h3>{{email}}</h3>
+
+
 												<span>Graphic Designer at Self Employed</span>
 											</div>
 										</div><!--user-profile end-->
 										<ul class="user-fw-status">
 											<li>
+
+
+
+
+
+
+
 												<h4>Following</h4>
 												<span>34</span>
 											</li>
@@ -337,8 +363,8 @@
 											<li><a href="#" title="">Copyright Policy</a></li>
 										</ul>
 										<div class="cp-sec">
-											<img src="images/logo2.png" alt="">
-											<p><img src="images/cp.png" alt="">Copyright 2018</p>
+											<img src="{% static 'images/logo2.png'  %}" alt="">
+											<p><img src="{% static 'images/cp.png'  %}" alt="">Copyright 2018</p>
 										</div>
 									</div><!--tags-sec end-->
 								</div><!--main-left-sidebar end-->
@@ -363,7 +389,7 @@
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
 														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">3 min ago</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -379,8 +405,8 @@
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+													<li><img src="{% static 'images/icon8.png'  %}" alt=""><span>Epic Coder</span></li>
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>India</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -406,10 +432,10 @@
 												<ul class="like-com">
 													<li>
 														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
+														<img src="{% static  'images/liked-img.png'  %}" alt="">
 														<span>25</span>
 													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="#" title="" class="com"><img src="{% static  'images/com.png'  %}" alt=""> Comment 15</a></li>
 												</ul>
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
@@ -426,7 +452,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -437,7 +463,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -448,7 +474,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -459,7 +485,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -470,7 +496,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -481,7 +507,7 @@
 													<span>Graphic Designer</span>
 													<ul>
 														<li><a href="#" title="" class="followw">Follow</a></li>
-														<li><a href="#" title="" class="envlp"><img src="images/envelop.png" alt=""></a></li>
+														<li><a href="#" title="" class="envlp"><img src="{% static  'images/envelop.png'  %}' %}" alt=""></a></li>
 														<li><a href="#" title="" class="hire">hire</a></li>
 													</ul>
 													<a href="#" title="">View Profile</a>
@@ -494,7 +520,7 @@
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
 														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
+														<span><img src="{% static  'images/clock.png'  %}" alt="">3 min ago</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -510,8 +536,8 @@
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+													<li><img src="{% static  'images/icon8.png'  %}" alt=""><span>Epic Coder</span></li>
+													<li><img src="{% static  'images/icon9.png'  %}" alt=""><span>India</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -538,10 +564,10 @@
 												<ul class="like-com">
 													<li>
 														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
+														<img src="{% static  'images/liked-img.png'  %}' %}" alt="">
 														<span>25</span>
 													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="#" title="" class="com"><img src="{% static  'images/com.png'  %}' %}" alt=""> Comment 15</a></li>
 												</ul>
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
@@ -553,7 +579,7 @@
 														<img src="http://via.placeholder.com/50x50" alt="">
 														<div class="usy-name">
 															<h3>John Doe</h3>
-															<span><img src="images/clock.png" alt="">3 min ago</span>
+															<span><img src="{% static  'images/clock.png'  %}" alt="">3 min ago</span>
 														</div>
 													</div>
 													<div class="ed-opts">
@@ -569,8 +595,8 @@
 												</div>
 												<div class="epi-sec">
 													<ul class="descp">
-														<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-														<li><img src="images/icon9.png" alt=""><span>India</span></li>
+														<li><img src="{% static  'images/icon8.png'  %}" alt=""><span>Epic Coder</span></li>
+														<li><img src="{% static  'images/icon9.png'  %}" alt=""><span>India</span></li>
 													</ul>
 													<ul class="bk-links">
 														<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -596,10 +622,10 @@
 													<ul class="like-com">
 														<li>
 															<a href="#"><i class="la la-heart"></i> Like</a>
-															<img src="images/liked-img.png" alt="">
+															<img src="{% static  'images/liked-img.png'  %}' %}" alt="">
 															<span>25</span>
 														</li> 
-														<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+														<li><a href="#" title="" class="com"><img src="{% static  'images/com.png'  %}' %}" alt=""> Comment 15</a></li>
 													</ul>
 													<a><i class="la la-eye"></i>Views 50</a>
 												</div>
@@ -617,7 +643,7 @@
 																</div>
 																<div class="comment">
 																	<h3>John Doe</h3>
-																	<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																	<span><img src="{% static  'images/clock.png'  %}" alt=""> 3 min ago</span>
 																	<p>Lorem ipsum dolor sit amet, </p>
 																	<a href="#" title="" class="active"><i class="fa fa-reply-all"></i>Reply</a>
 																</div>
@@ -630,7 +656,7 @@
 																		</div>
 																		<div class="comment">
 																			<h3>John Doe</h3>
-																			<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																			<span><img src="{% static  'images/clock.png'  %}" alt=""> 3 min ago</span>
 																			<p>Hi John </p>
 																			<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
 																		</div>
@@ -645,7 +671,7 @@
 																</div>
 																<div class="comment">
 																	<h3>John Doe</h3>
-																	<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																	<span><img src="{% static  'images/clock.png'  %}" alt=""> 3 min ago</span>
 																	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
 																	<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
 																</div>
@@ -679,7 +705,7 @@
 							<div class="col-lg-3 pd-right-none no-pd">
 								<div class="right-sidebar">
 									<div class="widget widget-about">
-										<img src="images/wd-logo.png" alt="">
+										<img src="{% static 'images/wd-logo.png'  %}" alt="">
 										<h3>Track Time on Workwise</h3>
 										<span>Pay only for the Hours worked</span>
 										<div class="sign_link">
@@ -1046,7 +1072,7 @@
 			</div>
 			<div class="chatbox">
 				<div class="chat-mg bx">
-					<a href="#" title=""><img src="images/chat.png" alt=""></a>
+					<a href="#" title=""><img src="{% static  'images/chat.png'  %}" alt=""></a>
 					<span>2</span>
 				</div>
 				<div class="conversation-box">
@@ -1062,7 +1088,7 @@
 							</div>
 							<div class="usy-info">
 								<h3>John Doe</h3>
-								<span>Lorem ipsum dolor <img src="images/smley.png" alt=""></span>
+								<span>Lorem ipsum dolor <img src="{% static  'images/smley.png'  %}" alt=""></span>
 							</div>
 							<div class="ct-time">
 								<span>1:55 PM</span>
@@ -1075,7 +1101,7 @@
 							</div>
 							<div class="usy-info">
 								<h3>John Doe</h3>
-								<span>Lorem ipsum dolor <img src="images/smley.png" alt=""></span>
+								<span>Lorem ipsum dolor <img src="{% static  'images/smley.png'  %}" alt=""></span>
 							</div>
 							<div class="ct-time">
 								<span>11:39 PM</span>
@@ -1087,7 +1113,7 @@
 							</div>
 							<div class="usy-info">
 								<h3>John Doe</h3>
-								<span>Lorem ipsum dolor <img src="images/smley.png" alt=""></span>
+								<span>Lorem ipsum dolor <img src="{% static  'images/smley.png'  %}" alt=""></span>
 							</div>
 							<div class="ct-time">
 								<span>0.28 AM</span>
@@ -1102,13 +1128,13 @@
 
 
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/popper.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
-<script type="text/javascript" src="lib/slick/slick.min.js"></script>
-<script type="text/javascript" src="js/scrollbar.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.mCustomScrollbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/slick/slick.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/scrollbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>

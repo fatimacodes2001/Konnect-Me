@@ -32,10 +32,10 @@
 						<div class="col-lg-6">
 							<div class="cmp-info">
 								<div class="cm-logo">
-									<img src="{% static 'images/cm-logo.png' %}" alt="">
+									<img src="{% static  'images/cm-logo.png'  %}" alt="">
 									<p>Workwise,  is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
 								</div><!--cm-logo end-->	
-								<img src="{% static 'images/cm-main-img.png' %}" alt="">			
+								<img src="{% static  'images/cm-main-img.png'  %}" alt="">			
 							</div><!--cmp-info end-->
 						</div>
 						<div class="col-lg-6">
@@ -50,11 +50,16 @@
 								<div class="sign_in_sec current" id="tab-1">
 									
 									<h3>Sign in</h3>
-									<form>
+
+
+
+
+									<form method="POST" action="login">
+										{% csrf_token %}
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="text" name="username" placeholder="Username">
+													<input type="text" name="email" placeholder="Email">
 													<i class="la la-user"></i>
 												</div><!--sn-field end-->
 											</div>
@@ -81,6 +86,10 @@
 											</div>
 										</div>
 									</form>
+
+
+
+
 									
 								</div><!--sign_in_sec end-->
 								<div class="sign_in_sec" id="tab-2">
@@ -207,7 +216,7 @@
 						<li><a href="#" title="">Language</a></li>
 						<li><a href="#" title="">Copyright Policy</a></li>
 					</ul>
-					<p><img src="{% static 'images/copy-icon.png' %}" alt="">Copyright 2018</p>
+					<p><img src="{% static  'images/copy-icon.png'  %}" alt="">Copyright 2018</p>
 				</div>
 			</div><!--footy-sec end-->
 		</div><!--sign-in-page end-->
