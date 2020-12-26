@@ -4,7 +4,7 @@ from django.contrib import messages
 
 from operator import itemgetter
 import mysql.connector
-from .models import RegularProfile
+from .models import RegularProfile,Page,PageFollowsPage,PageFollowsProfile,ProfileFollowsPage,ProfileFollowsProfile
 
 # Create your views here.
 
@@ -14,49 +14,57 @@ def welcome(request):
 
 def login(request):
 
-   mydb = mysql.connector.connect(
-   host="localhost",
-   user="root",
-   password="",
-   database = "konnect_me"
-   )
-
-   mycursor = mydb.cursor()
-   mycursor.execute("select email from regular_profile")
-
-   e = []
-   
-
-   for each in mycursor:
-      e.append(each)
-
-
-   
-   mycursor.execute("select password from regular_profile")
-
-   p= []
-
-   for each in mycursor:
-      p.append(each)
-   
-   e = list(map(itemgetter(0),e))
-   p = list(map(itemgetter(0),p))
-
 
    if request.method == "POST":
       email = request.POST["email"]
       password = request.POST["password"]
 
-      i = 0
-      while i<len(e):
-         if e[i] == email and p[i] == password:
-            return render(request,"index.html",{"email":email})
-         i += 1
+      try:
+         person = RegularProfile.objects.get(email=email)
+         fname = person.firstname
+         lname = person.lastname
+         num_followers = person.num_followers
+
+         followed_pages = len(ProfileFollowsPage.objects.filter(regular_profile_email=email))
+         followed_profiles = len(ProfileFollowsProfile.objects.filter(follower_email=email))
+
+         num_followed = followed_pages+followed_profiles
+         context = dict()
+         context['email'] = email
+         context['fname'] = fname
+         context['lname'] = lname
+         context['name'] = fname+" "+lname
+         context['followers'] = num_followers
+         context['followed'] = num_followed
+         return render(request,"index.html",context=context)
 
 
-      else:
-         messages.info(request,"Check Email or Password")
-         return redirect('login')
+
+      except:
+         try:
+            page = Page.objects.get(email=email)
+            name = page.title
+            num_followers = page.numfollowers
+
+            followed_pages = len(PageFollowsPage.objects.filter(follower_email=email))
+            followed_profiles = len(PageFollowsProfile.objects.filter(follower_page_email=email))
+
+            num_followed = followed_pages+followed_profiles
+            context = dict()
+            context['email'] = email
+            context['name'] = name
+            context['followers'] = num_followers
+            context['followed'] = num_followed
+            return render(request,"index.html",context=context)
+
+
+
+         except:
+
+            messages.info(request,"Check Email or Password")
+            return redirect('login')
+
+
       
 
    return render(request,"sign-in.html")
