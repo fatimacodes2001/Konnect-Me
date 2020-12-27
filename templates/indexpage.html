@@ -1,7 +1,4 @@
-
 {% load static %}
-{% load custom_tags %}
-
 
 
 <!DOCTYPE html>
@@ -19,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/jquery.mCustomScrollbar.min.css' %">
+<link rel="stylesheet" type="text/css" href="{% static './css/jquery.mCustomScrollbar.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
@@ -385,21 +382,13 @@
 										</div><!--post-st end-->
 									</div><!--post-topbar end-->
 									<div class="posts-section">
-										
-										
-
-										
-
-										{% for stat in status %} 
-
-
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
-														<h3>{{ names|get_item:stat.update_id }}</h3>
-														<span><img src="{% static 'images/clock.png'  %}" alt="">{{ stat.date }}</span>
+														<h3>John Doe</h3>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">3 min ago</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -416,44 +405,41 @@
 											<div class="epi-sec">
 												<ul class="descp">
 													<li><img src="{% static 'images/icon8.png'  %}" alt=""><span>Epic Coder</span></li>
-													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>{{stat.location}}</span></li>
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>India</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
 													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
 												</ul>
-												
 											</div>
 											<div class="job_descp">
-												
-												<p>{{ stat.caption }}</p>
-												
+												<h3>Senior Wordpress Developer</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">Full Time</a></li>
+													<li><span>$30 / hr</span></li>
+												</ul>
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+												<ul class="skill-tags">
+													<li><a href="#" title="">HTML</a></li>
+													<li><a href="#" title="">PHP</a></li>
+													<li><a href="#" title="">CSS</a></li>
+													<li><a href="#" title="">Javascript</a></li>
+													<li><a href="#" title="">Wordpress</a></li> 	
+												</ul>
 											</div>
-											
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<li>
 														<a href="#"><i class="la la-heart"></i> Like</a>
 														<img src="{% static  'images/liked-img.png'  %}" alt="">
-														<span>{{stat.num_likes}}</span>
+														<span>25</span>
 													</li> 
-													<li><a href="#" title="" class="com">Share</a></li>
+													<li><a href="#" title="" class="com"><img src="{% static  'images/com.png'  %}" alt=""> Comment 15</a></li>
 												</ul>
-												<a><i class="la la-eye"></i>Shares {{stat.num_shares}}</a>
+												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div><!--post-bar end-->
 
-									{% endfor %}
-
-
-
-
-
-
-
-
-
-										
 
 										<div class="top-profiles">
 											<div class="pf-hd">
@@ -529,6 +515,66 @@
 												</div><!--user-profy end-->
 											</div><!--profiles-slider end-->
 										</div><!--top-profiles end-->
+
+
+
+										<div class="post-bar">
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<div class="usy-name">
+														<h3>John Doe</h3>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">3 min ago</span>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="epi-sec">
+												<ul class="descp">
+													<li><img src="{% static 'images/icon8.png'  %}" alt=""><span>Epic Coder</span></li>
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>India</span></li>
+												</ul>
+												<ul class="bk-links">
+													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="job_descp">
+												<h3>Senior Wordpress Developer</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">Full Time</a></li>
+													<li><span>$30 / hr</span></li>
+												</ul>
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+												<ul class="skill-tags">
+													<li><a href="#" title="">HTML</a></li>
+													<li><a href="#" title="">PHP</a></li>
+													<li><a href="#" title="">CSS</a></li>
+													<li><a href="#" title="">Javascript</a></li>
+													<li><a href="#" title="">Wordpress</a></li> 	
+												</ul>
+											</div>
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<li>
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="{% static  'images/liked-img.png'  %}" alt="">
+														<span>25</span>
+													</li> 
+													<li><a href="#" title="" class="com"><img src="{% static  'images/com.png'  %}" alt=""> Comment 15</a></li>
+												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
+											</div>
+										</div><!--post-bar end-->
 
 
 
