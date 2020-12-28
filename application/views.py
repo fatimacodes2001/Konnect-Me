@@ -75,8 +75,7 @@ def feed(request):
             for post in stats:
                statuses.append(post)
                names[post.update_id] = obj.title
-             
-         
+                
 
 
 
@@ -90,6 +89,8 @@ def feed(request):
          context['name'] = fname+" "+lname
          context['followers'] = num_followers
          context['followed'] = num_followed
+
+
          return render(request,"index.html",context=context)
 
 
@@ -106,8 +107,42 @@ def feed(request):
             followed_profiles = len(PageFollowsProfile.objects.filter(follower_page_email=email))
             
             num_followed = followed_pages+followed_profiles
+
+
+            pages = PageFollowsPage.objects.filter(follower_email=email)
+            profiles = PageFollowsProfile.objects.filter(follower_page_email=email)
+
+            statuses = []
+            names = dict()
+
+
+            for each in profiles:
+               stats = Status.objects.filter(regular_profile_email=each.followed_profile_email)
+               obj = RegularProfile.objects.get(email=each.followed_profile_email.email)
+            
+
+               for post in stats:
+                  statuses.append(post)
+                  names[post.update_id] = obj.firstname + " " + obj.lastname
+
+
+
+            for each in pages:
+               stats = Status.objects.filter(page_email=each.page_email)
+       
+               obj = Page.objects.get(email = each.page_email.email)
+
+               for post in stats:
+                  statuses.append(post)
+                  names[post.update_id] = obj.title
+
+
+
+
             context = dict()
             context['email'] = email
+            context['names'] = name
+            context['status'] = statuses
             context['name'] = name
             context['followers'] = num_followers
             context['followed'] = num_followed
@@ -118,7 +153,8 @@ def feed(request):
          except  Page.DoesNotExist:
 
             messages.info(request,"Check Email or Password")
-            print("no")
+            print("ERROR")
             return redirect('login')
+
             
    return render(request,"index.html")
