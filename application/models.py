@@ -269,3 +269,4 @@ class Status(models.Model):
     class Meta:
         
         db_table = 'status'
+        get_latest_by = 'update_id'

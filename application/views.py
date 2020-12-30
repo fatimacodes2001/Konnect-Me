@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 from operator import itemgetter
+from django.urls import reverse
 
 import mysql.connector
 from .models import RegularProfile,Page,PageFollowsPage,PageFollowsProfile,ProfileFollowsPage,ProfileFollowsProfile,Status
@@ -32,12 +33,23 @@ def signup(request):
 
 
 def feed(request):
-   if request.method == "POST":
-      email = request.POST["email"]
-      password = request.POST["password"]
+
+
+      try:
+         email = request.POST["email"]
+         password = request.POST["password"]
+      except:
+         email = request.session["email"]
+         password = request.session["password"]
+
 
       try:
          person = RegularProfile.objects.get(email=email,password=password)
+
+         request.session['email'] = email
+         request.session['password'] = password
+
+
          fname = person.firstname
          lname = person.lastname
          num_followers = person.num_followers
@@ -157,4 +169,36 @@ def feed(request):
             return redirect('login')
 
             
-   return render(request,"index.html")
+      return render(request,"index.html")
+
+
+
+
+def add(request):
+
+   if request.method == 'POST':
+
+
+
+      caption = request.POST['caption']
+      location = request.POST['location']
+      email = request.session['email']
+
+      try:
+         reg_pro = RegularProfile.objects.get(email=email)
+         id = Status.objects.latest().status_id+1
+         post = Status(status_id=id,regular_profile_email=reg_pro,caption=caption,num_likes=0,num_shares=0,location=location,date="2020-11-11")
+         post.save()
+      
+      
+      RegularProfile.DoesNotExist:
+         page = Page.objects.get(email=email)
+         id = Status.objects.latest().status_id+1
+         post = Status(status_id=id,page_email=page,caption=caption,num_likes=0,num_shares=0,location=location,date="2020-11-11")
+         post.save()
+
+      
+      return redirect(reverse('feed'))
+      
+
+   
