@@ -6,7 +6,7 @@ from operator import itemgetter
 from django.urls import reverse
 
 import mysql.connector
-from .models import RegularProfile,Page,PageFollowsPage,PageFollowsProfile,ProfileFollowsPage,ProfileFollowsProfile,Status
+from .models import RegularProfile,Page,PageFollowsPage,PageFollowsProfile,ProfileFollowsPage,ProfileFollowsProfile,Status,Job
 
 
 
@@ -108,6 +108,8 @@ def feed(request):
 
 
       except RegularProfile.DoesNotExist:
+
+
          try:
             page = Page.objects.get(email=email,password=password)
             name = page.title
@@ -191,14 +193,39 @@ def add(request):
          post.save()
       
       
-      RegularProfile.DoesNotExist:
+      except RegularProfile.DoesNotExist:
          page = Page.objects.get(email=email)
          id = Status.objects.latest().status_id+1
          post = Status(status_id=id,page_email=page,caption=caption,num_likes=0,num_shares=0,location=location,date="2020-11-11")
          post.save()
 
-      
       return redirect(reverse('feed'))
-      
 
-   
+
+
+
+def jobs(request):
+      email = request.session['email']
+      pages = ProfileFollowsPage.objects.filter(regular_profile_email=email)
+      jobs = []
+      page = dict()
+
+      for each in pages:
+         jobs_list = Job.objects.filter(page_email=each.page_email)
+         
+         for job in jobs_list:
+            jobs.append(job)
+            
+            obj = Page.objects.get(email=job.page_email.email)
+            print(obj)
+
+            print(obj.title)
+            page[job.page_email] = obj.title
+
+      context = dict()
+      context['jobs'] = jobs
+      context['name'] = RegularProfile.objects.get(email=email).firstname + " " + RegularProfile.objects.get(email=email).lastname
+      context['page'] = page
+
+      return render(request,"jobs.html",context=context)
+      
