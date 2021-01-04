@@ -214,7 +214,7 @@ def feed(request):
 
 
             for each in profiles:
-               stats = Status.objects.filter(regular_profile_email=each.followed_profile_email)
+               stats = Status.objects.filter(regular_profile_email=each.followed_profile_email.email)
                obj = RegularProfile.objects.get(email=each.followed_profile_email.email)
             
 
@@ -225,20 +225,91 @@ def feed(request):
 
 
             for each in pages:
-               stats = Status.objects.filter(page_email=each.page_email)
+               stats = Status.objects.filter(page_email=each.followed_page_email.email)
        
-               obj = Page.objects.get(email = each.page_email.email)
+               obj = Page.objects.get(email = each.followed_page_email.email)
 
                for post in stats:
                   statuses.append(post)
                   names[post.update_id] = obj.title
+
+            #Ordering by date
+            '''statuses.sort(key = lambda x: x.date,reverse=True)
+
+
+            #suggestions
+            f_profiles = []
+            f_pages = []
+
+            followed1 = PageFollowsPage.objects.filter(follower_email=email)
+            for each in followed1:
+               f_pages.append(each.followed_page_email.email)
+
+
+            followed2 = PageFollowsProfile.objects.filter(follower_page_email=email)
+            for each in followed2:
+               f_profiles.append(each.followed_profile_email.email)
+
+            sugges1 = []
+            sugges2 = []
+
+            for each in followed1:
+               profs = PageFollowsProfile.objects.filter(follower_page_email=each.page_email.email)
+               page_s = PageFollowsPage.objects.filter(follower_email=each.page_email.email)
+
+               for obj in profs:
+                  profile = RegularProfile.objects.get(email=obj.followed_profile_email.email)
+                  if profile.email not in f_profiles:
+                     sugges1.append(profile)
+               
+               for obj in page_s:
+                  p = Page.objects.get(email= obj.followed_page_email.email)
+                  if p.email not in f_pages:
+                     sugges2.append(p)
+
+
+
+            for each in followed2:
+               profs = ProfileFollowsProfile.objects.filter(follower_email=each.followed_profile_email.email)
+               page_s = ProfileFollowsPage.objects.filter(regular_profile_email=each.followed_profile_email.email)
+
+               for obj in profs:
+                  profile = RegularProfile.objects.get(email=obj.followed_profile_email.email)
+                  if profile.email not in f_profiles:
+                     sugges1.append(profile)
+               
+               for obj in page_s:
+                  p = Page.objects.get(email= obj.page_email.email)
+                  if p.email not in f_pages:
+                     sugges2.append(p)
+
+            sugges1.sort(key = lambda x: x.num_followers,reverse=True)
+            
+            sugges2.sort(key = lambda x: x.numfollowers,reverse=True)
+            
+
+
+            suggestions = dict()
+            if len(sugges1)>3:
+               sugges1 = sugges1[0:3]
+            if len(sugges2)>3:
+               sugges2 = sugges2[0:3]
+
+            for each in sugges1:
+               suggestions[each.email] = each.firstname+" "+each.lastname
+
+            for each in sugges2:
+               suggestions[each.email] = each.title
+
+            print(suggestions)'''
 
 
 
 
             context = dict()
             context['email'] = email
-            context['names'] = name
+            context['names'] = names
+            #context['suggestions'] = suggestions
             context['status'] = statuses
             context['name'] = name
             context['followers'] = num_followers
