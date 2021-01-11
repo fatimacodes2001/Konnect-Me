@@ -10,6 +10,18 @@ import mysql.connector
 from .models import RegularProfile,Page,PageFollowsPage,PageFollowsProfile,ProfileFollowsPage,ProfileFollowsProfile,Status,Job
 
 
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="",
+  database = "konnect_me"
+)
+
+mycursor = mydb.cursor()
+
+
 
 
 
@@ -234,7 +246,7 @@ def feed(request):
                   names[post.update_id] = obj.title
 
             #Ordering by date
-            '''statuses.sort(key = lambda x: x.date,reverse=True)
+            statuses.sort(key = lambda x: x.date,reverse=True)
 
 
             #suggestions
@@ -254,8 +266,8 @@ def feed(request):
             sugges2 = []
 
             for each in followed1:
-               profs = PageFollowsProfile.objects.filter(follower_page_email=each.page_email.email)
-               page_s = PageFollowsPage.objects.filter(follower_email=each.page_email.email)
+               profs = PageFollowsProfile.objects.filter(follower_page_email=each.followed_page_email.email)
+               page_s = PageFollowsPage.objects.filter(follower_email=each.followed_page_email.email)
 
                for obj in profs:
                   profile = RegularProfile.objects.get(email=obj.followed_profile_email.email)
@@ -279,7 +291,7 @@ def feed(request):
                      sugges1.append(profile)
                
                for obj in page_s:
-                  p = Page.objects.get(email= obj.page_email.email)
+                  p = Page.objects.get(email= obj.followed_page_email.email)
                   if p.email not in f_pages:
                      sugges2.append(p)
 
@@ -301,7 +313,7 @@ def feed(request):
             for each in sugges2:
                suggestions[each.email] = each.title
 
-            print(suggestions)'''
+            print(suggestions)
 
 
 
@@ -309,7 +321,7 @@ def feed(request):
             context = dict()
             context['email'] = email
             context['names'] = names
-            #context['suggestions'] = suggestions
+            context['suggestions'] = suggestions
             context['status'] = statuses
             context['name'] = name
             context['followers'] = num_followers
@@ -355,6 +367,112 @@ def add(request):
 
       return redirect(reverse('feed'))
 
+
+def search(request):
+   email = request.session['email']
+   emails = []
+   persons = []
+   pages = []
+
+   query = request.POST.get("mainsearch")
+   query = str(query)
+
+   query_l = ""
+   if len(query.split())>1:
+      query_l = query.split()[1]
+   else:
+      query_l = query.split()[0]
+   
+   
+   q = '''select email from page where
+title like "'''+query+'''%" or companyType like "'''+query+'''%"
+union
+select email from regular_profile
+where firstName like "'''+ query.split()[0]+'''%" or lastName
+like "'''+query_l+'''%"
+union select regular_profile.email
+from regular_profile inner join interests
+where interest like "'''+query+'''%"
+union select regular_profile.email
+from regular_profile inner join skills
+where skill like "'''+query+'''%"'''
+
+   mycursor.execute(q)
+   context = dict()
+ 
+   myresult = mycursor.fetchall()
+
+   for each in myresult:
+      emails.append(each[0])
+   print(emails)
+   for each in emails:
+      try:
+         person = RegularProfile.objects.get(email=each)
+         persons.append(person)
+
+      except RegularProfile.DoesNotExist:
+
+         page = Page.objects.get(email=each)
+         pages.append(page)
+   print(len(persons))
+
+   context['name'] = RegularProfile.objects.get(email=email).firstname + " " + RegularProfile.objects.get(email=email).lastname
+   context['people'] = persons
+   context['pages'] = pages
+   return render(request,"search.html",context=context)
+
+
+
+
+
+
+
+
+
+
+
+
+def searchjobs(request):
+
+   email = request.session['email']
+   ids = []
+
+   query = request.POST.get("search")
+   
+   q = '''select * from job where type like "'''+query+'''%"
+or description like "%'''+query+'''%" or qualification like"'''+query+'''%"
+union
+select job.* from job inner join page 
+on page.email = job.page_email
+where title like "'''+query+'''%"'''
+
+   mycursor.execute(q)
+   jobs_list = []
+   page = dict()
+   myresult = mycursor.fetchall()
+
+   for each in myresult:
+      ids.append(each[0])
+
+
+
+
+   for each in ids:
+      job = Job.objects.get(job_id=each)
+      jobs_list.append(job)
+      obj = Page.objects.get(email=job.page_email.email)
+      page[job.page_email] = obj.title
+
+   context = dict()
+   context['jobs'] = jobs_list
+   context['name'] = RegularProfile.objects.get(email=email).firstname + " " + RegularProfile.objects.get(email=email).lastname
+   context['page'] = page
+
+   return render(request,"searchjobs.html",context=context)
+
+   
+
+       
 
 
 

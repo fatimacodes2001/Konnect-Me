@@ -9,5 +9,7 @@ urlpatterns = [
     path('feed',views.feed,name = 'feed'),
     path('add',views.add,name = 'add'),
     path('jobs',views.jobs,name = 'jobs'),
+    path("searchjobs",views.searchjobs,name='searchjobs'),
+    path("search",views.search,name="search")
     
 ]

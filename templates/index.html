@@ -46,10 +46,15 @@
 						<a href="index.html" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
-						<form>
-							<input type="text" name="search" placeholder="Search...">
+						
+						
+						<form method="POST" action="{%url 'search'%}">
+                            {% csrf_token %}
+							<input type="text" name="mainsearch" placeholder="Search...">
 							<button type="submit"><i class="la la-search"></i></button>
-						</form>
+                        </form>
+
+
 					</div><!--search-bar end-->
 					<nav>
 						<ul>
