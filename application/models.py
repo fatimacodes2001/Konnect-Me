@@ -1,15 +1,15 @@
+# This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
 class Album(models.Model):
     objects = models.Manager()
-
     album_id = models.AutoField(primary_key=True)
     page_email = models.ForeignKey('Page', models.DO_NOTHING, db_column='page_email', blank=True, null=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email', blank=True, null=True)
@@ -18,36 +18,30 @@ class Album(models.Model):
     num_photos = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        
-        db_table = 'album'
+                 db_table = 'album'
 
 
 class AppliesFor(models.Model):
     objects = models.Manager()
-
     job = models.OneToOneField('Job', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
 
     class Meta:
-        
         db_table = 'applies_for'
         unique_together = (('job', 'regular_profile_email'),)
 
 
 class Interests(models.Model):
     objects = models.Manager()
-
     email = models.OneToOneField('RegularProfile', models.DO_NOTHING, db_column='email', primary_key=True)
     interest = models.CharField(max_length=45)
 
     class Meta:
-        
         db_table = 'interests'
         unique_together = (('email', 'interest'),)
 
 
 class Job(models.Model):
-
     objects = models.Manager()
     job_id = models.AutoField(primary_key=True)
     page_email = models.ForeignKey('Page', models.DO_NOTHING, db_column='page_email')
@@ -58,15 +52,17 @@ class Job(models.Model):
     salary = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=300, blank=True, null=True)
     contact_detail = models.CharField(max_length=200, blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True, null=True)
+    postdate = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        
-        db_table = 'job'
+                 db_table = 'job'
+                 get_latest_by = 'job_id'
+
 
 
 class Page(models.Model):
     objects = models.Manager()
-
     email = models.CharField(primary_key=True, max_length=50)
     password = models.CharField(max_length=45, blank=True, null=True)
     businessid = models.IntegerField(db_column='businessId', blank=True, null=True)  # Field name made lowercase.
@@ -78,8 +74,7 @@ class Page(models.Model):
     numfollowers = models.IntegerField(db_column='numFollowers', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        
-        db_table = 'page'
+                 db_table = 'page'
 
 
 class PageFollowsPage(models.Model):
@@ -88,7 +83,6 @@ class PageFollowsPage(models.Model):
     followed_page_email = models.ForeignKey(Page, models.DO_NOTHING, db_column='followed_page_email',related_name='+')
 
     class Meta:
-        
         db_table = 'page_follows_page'
         unique_together = (('follower_email', 'followed_page_email'),)
 
@@ -99,7 +93,6 @@ class PageFollowsProfile(models.Model):
     followed_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='followed_profile_email')
 
     class Meta:
-        
         db_table = 'page_follows_profile'
         unique_together = (('follower_page_email', 'followed_profile_email'),)
 
@@ -111,7 +104,6 @@ class PageLikesPhotos(models.Model):
     photo_like_id = models.IntegerField()
 
     class Meta:
-        
         db_table = 'page_likes_photos'
         unique_together = (('update', 'page_email', 'photo_like_id'),)
 
@@ -123,7 +115,6 @@ class PageLikesStatus(models.Model):
     status_like_id = models.IntegerField()
 
     class Meta:
-        
         db_table = 'page_likes_status'
         unique_together = (('update', 'page_email', 'status_like_id'),)
 
@@ -142,8 +133,9 @@ class Photos(models.Model):
     location = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        
-        db_table = 'photos'
+                 db_table = 'photos'
+                 get_latest_by = 'update_id'
+
 
 
 class ProfileFollowsPage(models.Model):
@@ -152,7 +144,6 @@ class ProfileFollowsPage(models.Model):
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
 
     class Meta:
-        
         db_table = 'profile_follows_page'
         unique_together = (('page_email', 'regular_profile_email'),)
 
@@ -163,7 +154,6 @@ class ProfileFollowsProfile(models.Model):
     followed_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='followed_profile_email',related_name='+')
 
     class Meta:
-        
         db_table = 'profile_follows_profile'
         unique_together = (('follower_email', 'followed_profile_email'),)
 
@@ -175,7 +165,6 @@ class ProfileLikesPhotos(models.Model):
     photo_like_id = models.IntegerField()
 
     class Meta:
-        
         db_table = 'profile_likes_photos'
         unique_together = (('update', 'regular_profile_email', 'photo_like_id'),)
 
@@ -187,7 +176,6 @@ class ProfileLikesStatus(models.Model):
     status_like_id = models.IntegerField()
 
     class Meta:
-        
         db_table = 'profile_likes_status'
         unique_together = (('update', 'regular_profile_email', 'status_like_id'),)
 
@@ -199,28 +187,23 @@ class ProfileSharesPhotos(models.Model):
     share_id = models.IntegerField()
 
     class Meta:
-        
         db_table = 'profile_shares_photos'
         unique_together = (('update', 'regular_profile_email', 'share_id'),)
 
 
 class ProfileSharesStatus(models.Model):
-
     objects = models.Manager()
-
     update = models.OneToOneField('Status', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     share_id = models.IntegerField()
 
     class Meta:
-        
-        db_table = 'profile_shares_status'
-        unique_together = (('update', 'regular_profile_email', 'share_id'),)
+                 db_table = 'profile_shares_status'
+                 unique_together = (('update', 'regular_profile_email', 'share_id'),)
 
 
 class RegularProfile(models.Model):
     objects = models.Manager()
-
     email = models.CharField(primary_key=True, max_length=50)
     password = models.CharField(max_length=45, blank=True, null=True)
     firstname = models.CharField(db_column='firstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
@@ -238,18 +221,15 @@ class RegularProfile(models.Model):
     num_followers = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        
-        db_table = 'regular_profile'
+                 db_table = 'regular_profile'
 
 
 class Skills(models.Model):
-
     objects = models.Manager()
     email = models.OneToOneField(RegularProfile, models.DO_NOTHING, db_column='email', primary_key=True)
     skill = models.CharField(max_length=45)
 
     class Meta:
-        
         db_table = 'skills'
         unique_together = (('email', 'skill'),)
 
@@ -267,6 +247,6 @@ class Status(models.Model):
     location = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
-        
-        db_table = 'status'
-        get_latest_by = 'update_id'
+                 db_table = 'status'
+                 get_latest_by = 'update_id'
+

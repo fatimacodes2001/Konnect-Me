@@ -1,7 +1,258 @@
 $(window).on("load", function() {
     "use strict";
 
-    
+    //  ============= Transfer POPUP FUNCTION =========
+
+    //
+    // $(document).ready(function(){
+    //   $("button").click(function(){
+    //     alert($("#butt").attr("value"));
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: '/signup_two',
+    //       data:{
+    //         albumid:$("#butt").attr("value"),
+    //         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+    //       },
+    //       success:function(){
+    //         alert("gone");
+    //       }
+    //     });
+    //   });
+    // });
+
+
+
+
+
+    //  ============= FOLLOWING POPUP FUNCTION =========
+
+    $("#following-popup").on("click", function(){
+        $(".following-popup.pst-pj").addClass("active");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+
+    $(".following-box > a").on("click", function(){
+        $(".following-popup.pst-pj").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+    //  ============= FOLLOWER POPUP FUNCTION =========
+
+    $("#follower-popup").on("click", function(){
+        console.log("ok")
+        $(".follower-popup.pst-pj").addClass("active");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+
+    $(".follower-box > a").on("click", function(){
+        $(".follower-popup.pst-pj").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+    //  ============= SHARE FUNCTION =========
+
+    $(".la.la-share").on("click",function(){
+        var num_shares = $(this).attr("shares");
+        var update_id = $(this).attr("update_id");
+        var status_id = '#share'+update_id
+        var not_status_id = '#not-share'+update_id
+
+        if($(status_id).attr("status") === "not-shared"){
+          num_shares = parseInt(num_shares,10)+1;
+          $.ajax({
+            type: 'POST',
+            url: '/profile',
+            data:{
+              num_shares:num_shares,
+              update_id:update_id,
+              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+              $(status_id).text("Shares "+num_shares);
+              $(status_id).attr("status","shared");
+            }
+          });
+        }
+      else{
+          alert("You have already shared this status")
+        };
+    });
+
+    //  ============= LIKE-UNLIKE FUNCTION =========
+
+    $(".like-button").on("click",function(){
+        var num_likes = $(this).attr("likes");
+        var update_id = $(this).attr("update_id");
+        var update_id_id = '#'+($(this).attr("update_id"));
+        var update_id_main = '#'+update_id+'-main';
+        var preliked = $(this).attr("preliked");;
+        var like_switch = '#like-switch'+update_id;
+        var unlike_switch = '#unlike-switch'+update_id;
+
+        if($(this).attr("status") === "liked"){
+
+            if(preliked == "1"){
+              num_likes = parseInt(num_likes,10)-1;
+              $.ajax({
+                type: 'POST',
+                url: '/profile',
+                data:{
+                  num_likes:num_likes,
+                  update_id:update_id,
+                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+                  $(update_id_id).text(num_likes);
+                  $(like_switch).attr("preliked","1");
+                  $(unlike_switch).attr("preliked","1");
+                }
+              });
+            };
+            if (preliked == "0") {
+              $.ajax({
+                type: 'POST',
+                url: '/profile',
+                data:{
+                  num_likes:num_likes,
+                  update_id:update_id,
+                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+                  $(update_id_id).text(num_likes);
+                  $(like_switch).attr("preliked","0");
+                  $(unlike_switch).attr("preliked","0");
+                }
+              });
+            };
+
+          $(this).attr("status","unliked");
+          $(update_id_main).removeClass("active");
+
+        }//function to unlike
+
+
+        else if($(this).attr("status") === "unliked"){
+
+          if (preliked === "1"){
+            $.ajax({
+              type: 'POST',
+              url: '/profile',
+              data:{
+                num_likes:num_likes,
+                update_id:update_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+              },
+              success:function(){
+                $(update_id_id).text(num_likes);
+                $(like_switch).attr("preliked","1");
+                $(unlike_switch).attr("preliked","1");
+              }
+            });
+          };
+          if (preliked === "0"){
+              num_likes = parseInt(num_likes,10)+1;
+              $.ajax({
+                type: 'POST',
+                url: '/profile',
+                data:{
+                  num_likes:num_likes,
+                  update_id:update_id,
+                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+                  $(update_id_id).text(num_likes);
+                  $(like_switch).attr("preliked","0");
+                  $(unlike_switch).attr("preliked","0");
+                }
+              });
+          };
+
+          $(this).attr("status","liked");
+          $(update_id_main).addClass("active");
+
+        };//function to like
+    });
+
+    //  ============= LIKER POPUP FUNCTION =========
+
+    $(".likers").on("click", function(){
+        var update_id = $(this).attr("update_id")
+        var num_likes = $(this).attr("likes")
+        $.ajax({
+          type: 'POST',
+          url: '/profile',
+          data:{
+            update_id :$(this).attr("update_id"),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+          },
+          success:function(){
+            $.ajax({
+              type: 'GET',
+              url: '/profile',
+              data: {
+                update_id:update_id,
+                num_likes:num_likes
+              },
+              success:function(data){
+                $('#likers').html(data);
+              }
+            });
+          }
+        });
+        $(".liker-popup.pst-pj").addClass("active");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+
+    $(".liker-box > a").on("click", function(){
+        $(".liker-popup.pst-pj").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+
+    //  ============= SHARER POPUP FUNCTION =========
+
+    $(".sharer").on("click", function(){
+        var update_id = $(this).attr("update_id")
+        var num_shares = $(this).attr("shares")
+        $.ajax({
+          type: 'POST',
+          url: '/profile',
+          data:{
+            update_id :$(this).attr("update_id"),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+          },
+          success:function(){
+            $.ajax({
+              type: 'GET',
+              url: '/profile',
+              data: {
+                update_id:update_id,
+                num_shares:num_shares
+              },
+              success:function(data){
+                $('#sharer').html(data);
+              }
+            });
+          }
+        });
+        $(".sharer-popup.pst-pj").addClass("active");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+
+    $(".liker-box > a").on("click", function(){
+        $(".sharer-popup.pst-pj").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
 
     //  ============= POST PROJECT POPUP FUNCTION =========
 
@@ -82,6 +333,19 @@ $(window).on("load", function() {
         return false;
     });
 
+    //  ============= OVERVIEW EDIT FUNCTION =========
+
+    $(".overview-open").on("click", function(){
+        $("#overview-box_2").addClass("open");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+    $(".close-box").on("click", function(){
+        $("#overview-box_2").removeClass("open");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
     //  ============= EXPERIENCE EDIT FUNCTION =========
 
     $(".exp-bx-open").on("click", function(){
@@ -147,18 +411,55 @@ $(window).on("load", function() {
         return false;
     });
 
-    //  ============= CREATE PORTFOLIO FUNCTION =========
+    //  ============= UPLOAD PIC FUNCTION =========
 
     $(".gallery_pt > a").on("click", function(){
+        var album_id = $(this).attr("id")
+        $.ajax({
+          type: 'POST',
+          url: '/profile',
+          data:{
+            album_id :$(this).attr("id"),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+          },
+          success:function(){
+            $.ajax({
+              type: 'GET',
+              url: '/profile',
+              data: {album_id:album_id},
+              success:function(data){
+                $('#checkers').html(data);
+              }
+            });
+          }
+        });
         $("#create-portfolio").addClass("open");
         $(".wrapper").addClass("overlay");
         return false;
     });
+
     $(".close-box").on("click", function(){
         $("#create-portfolio").removeClass("open");
         $(".wrapper").removeClass("overlay");
         return false;
     });
+
+
+
+    //  ============= CREATE PORTFOLIO FUNCTION =========
+
+    $("#album-add").on("click", function(){
+        $("#create-portfolio-2").addClass("open");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+    $(".close-box").on("click", function(){
+        $("#create-portfolio-2").removeClass("open");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+
 
     //  ============= EMPLOYEE EDIT FUNCTION =========
 
@@ -187,7 +488,7 @@ $(window).on("load", function() {
     });
 
 
-    //  ============== ChatBox ============== 
+    //  ============== ChatBox ==============
 
 
     $(".chat-mg").on("click", function(){
@@ -289,5 +590,3 @@ $(window).on("load", function() {
 
 
 });
-
-

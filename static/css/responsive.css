@@ -18,6 +18,8 @@
 	.cp-sec {text-align: center;}
 	.flw-status li {margin-right: 10px;}
 	.flw-status li span {font-size: 16px;}
+	.album-name li {margin-right: 10px;}
+	.album-name li span {font-size: 16px;}
 	.social_links li a {font-size: 10px;}
 	.footy-sec ul {width: 100%;text-align: center;}
 	.fl-rgt {float: none;margin-top: 0;padding-bottom: 20px;width: auto;padding-right: 0;}
@@ -53,7 +55,7 @@
 	.suggestion-usd {padding: 15px 20px;}
 	.right-sidebar {margin-top: 50px;}
 	.companies-info {padding: 30px 0 60px 0;}
-	.pf-gallery ul li {width: auto;}
+	.pf-gallery ul li {width: auto; height:auto;padding: 3px;}
 	.social_links li a {font-size: 13px;}
 	.footy-sec.mn ul li {margin-bottom: 10px;}
 	.user-pro-img > a {left: 56%;}
@@ -85,7 +87,6 @@
 	.profile-bx-details {margin-bottom: -25px;}
 }
 
-
 @media (max-width: 768px) {
 	.login_register {display: none;}
 	.forum-bar ul {float: right;}
@@ -94,6 +95,7 @@
 	.no-pd {padding: 0;}
 	.sign-in-page {padding: 60px 0;}
 	.overview-box {width: 100%;}
+	.overview-box_2 {width: 100%;}
 	.close-box {top: -23px;right: 2px;}
 	.forum-links ul li {margin-right: 20px;}
 	.forum-links ul li a {font-size: 13px;}
@@ -110,7 +112,6 @@
 	.mf-field button {margin-left: 0;margin-bottom: 10px;}
 	.message-inner-dt > img {margin-bottom: 10px;}
 }
-
 
 @media (max-width: 576px) {
 	.signin-pop {margin-bottom: 40px;}
@@ -144,6 +145,11 @@
 	.star-descp span {font-size: 14px;}
 	.footy-sec {margin-top: 30px;}
 	.post-popup {width: 100%;overflow: scroll;}
+	.popup {width: 100%;overflow: scroll;}
+	.follower-popup {width: 100%;overflow: scroll;}
+	.liker-popup {width: 100%;overflow: scroll;}
+	.sharer-popup {width: 100%;overflow: scroll;}
+	.following-popup {width: 100%;overflow: scroll;}
 	.price-br {float: left;width: 100% !important;}
 	.price-sec span {padding: 0;margin-bottom: 20px;}
 	.post-project > a {top: 21px;right: 20px;}

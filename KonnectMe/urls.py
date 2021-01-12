@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from application import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -25,5 +26,11 @@ urlpatterns = [
     path('login',views.login,name = 'login'),
     path('feed',views.feed,name = 'feed'),
     path('login',views.signup,name = 'signup'),
-    path('application/',include("application.urls"),)
+    path('application/',include("application.urls"),),
+    path('signup_two',views.signup_two,name = 'signup_two'),
+    path('index',views.index,name = 'index'),
+    path('profile',views.profile,name = 'profile'),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
