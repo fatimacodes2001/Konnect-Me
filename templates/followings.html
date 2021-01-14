@@ -1,0 +1,37 @@
+{% load static %}
+{% load share_tag %}
+
+<div class="suggestions-list">
+  {% if followings %}
+  {% for following in followings %}
+  {% is_profile following as isprofile %}
+  {% is_page following as ispage %}
+  {% if isprofile %}
+  <div class="suggestion-usd" id="div-{% get_un_following_profile_id following.followed_profile_email.email %}" >
+    <img src="media/{{following.followed_profile_email.email}}/{{ following.followed_profile_email.email }}/{{ following.followed_profile_email.email }}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ following.followed_profile_email.firstname }} {{ following.followed_profile_email.lastname }}</h4>
+      <span>{{ following.followed_profile_email.work_profile }}</span>
+    </div>
+    <span><i  id="{% get_un_following_profile_id following.followed_profile_email.email %}" type="profile" followed-email = "{{following.followed_profile_email.email}}" class="la la-minus"></i></span>
+  </div>
+  {% elif ispage %}
+  <div class="suggestion-usd" id="div-{% get_un_following_page_id following.page_email.email %}" >
+    <img src="media/{{following.page_email.email}}/{{ following.page_email.email }}/{{ following.page_email.email }}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ following.page_email.title }}</h4>
+      <span>{{ following.page_email.companytype }}</span>
+    </div>
+    <span><i  id="{% get_un_following_page_id following.page_email.email %}" type="page" followed-email = "{{following.page_email.email}}" class="la la-minus"></i></span>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static './js/popper.js' %}"></script>
+  <script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
+  <script type="text/javascript" src="{% static './js/script.js' %}"></script>
+
+</div><!--suggestions-list end-->

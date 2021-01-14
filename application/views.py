@@ -21,7 +21,7 @@ mail = ""
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="",
+  password="Tuchapax-999",
   database = "konnect_me"
 )
 
@@ -176,7 +176,7 @@ def feed(request):
          if len(sugges2)>3:
             sugges2 = sugges2[0:3]
 
-         
+
 
          for each in sugges1:
             suggestions[each.email] = each.firstname+" "+each.lastname
@@ -189,7 +189,7 @@ def feed(request):
             if key==email:
                val = True
                break
-         
+
          if val==True:
             suggestions.pop(email)
 
@@ -393,7 +393,7 @@ def add(request):
 
 def addjob(request):
 
-   
+
       email = mail
 
       title = request.POST.get('jobtitle')
@@ -607,6 +607,9 @@ def profile(request):
 
     followings = list(chain(profile_followings,page_followings))
 
+    # followings_ids = list(chain(RegularProfile.objects.filter(email__in = [object.followed_profile_email.email for object in profile_followings])
+    #                 ,Page.objects.filter(email__in = [object.page_email.email for object in page_followings])))
+
     non_followings = list(chain(RegularProfile.objects.exclude(email__in = [object.followed_profile_email.email for object in profile_followings])
                     ,Page.objects.exclude(email__in = [object.page_email.email for object in page_followings])))
 
@@ -616,59 +619,11 @@ def profile(request):
 
 
     followed_followers = list(chain(followed_follower_profiles,followed_followers_pages))
-    unfollowed_followers = list(
-                        chain(
-                        ProfileFollowsProfile.objects.filter(followed_profile_email = email).exclude( follower_email__in = [object.followed_profile_email for object in followed_follower_profiles])
-                        ,
-                        PageFollowsProfile.objects.filter(followed_profile_email = email).exclude( follower_page_email__in = [object.page_email for object in followed_followers_pages])
-                        )
-                        )
-
-    up1 = RegularProfile.objects.exclude(email__in = [object.follower_email.email for object in follower_profiles])
-    up2 = Page.objects.exclude(email__in = [object.follower_page_email.email for object in follower_pages])
-    up3 = chain(up1,up2)
-    up4 = list(up3)
+    unfollowed_followers = list(chain(ProfileFollowsProfile.objects.filter(followed_profile_email = email).exclude( follower_email__in = [object.followed_profile_email for object in followed_follower_profiles])
+                        ,PageFollowsProfile.objects.filter(followed_profile_email = email).exclude( follower_page_email__in = [object.page_email for object in followed_followers_pages])))
 
 
-    print("\n\n\n")
-    print("......")
-    for f in follower_profiles:
-        print(f.followed_profile_email.email)
-    print("\n\n\n")
-    print("......")
-    for f in up1:
-        print(f)
-
-    print("\n\n\n")
-    print("......")
-    for f in up2:
-        print(f)
-
-    print("\n\n\n")
-    print("......")
-    for f in follower_profiles:
-        print(f)
-
-    print("\n\n\n")
-    print("......")
-    for f in follower_pages:
-        print(f)
-
-    print("\n\n\n")
-    print("......")
-    for f in followings:
-        print(f)
-
-    print("\n\n\n")
-    print("......")
-    for f in non_followings:
-        print(f)
-
-    print("\n\n\n")
-    print("end")
     albums = Album.objects.filter(regular_profile_email = email).order_by('name')
-
-    # suggestions = RegularProfile.objects.filter(email__in = non_followings.values_list('email', flat=True)).exclude(email = email).order_by("?")[:6]
 
     # self_follow = ProfileFollowsProfile.objects.filter(followed_profile_email = email).order_by('follower_profile_email')
 
@@ -694,6 +649,7 @@ def profile(request):
 
 
     if request.method == 'POST':
+
 
 
         if "update_id" in request.POST:
@@ -873,11 +829,11 @@ def profile(request):
         form = PhotoForm()
 
 
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n")
     print(request)
     print(request.POST)
     print(request.GET)
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n")
 
 
     if request.is_ajax():
@@ -894,6 +850,49 @@ def profile(request):
 
         template = 'album.html'
 
+        if 'type' in request.GET:
+
+            if request.GET.get('type') == "followers" :
+
+                template = "followers.html"
+
+            if request.GET.get('type') == "followings" :
+
+                template = "followings.html"
+
+        if "type" in request.POST:
+
+            if request.POST.get("type") == "page":
+
+                if "followed_email" in request.POST:
+
+                    followed_email = request.POST.get("followed_email")
+                    followed_page = Page.objects.filter(email = followed_email).first()
+                    follow = ProfileFollowsPage.objects.create(page_email = followed_page , regular_profile_email = profile )
+                    print("followed "+followed_email)
+
+                if "un_followed_email" in request.POST:
+
+                    un_followed_email= request.POST.get("un_followed_email")
+
+                    unfollow = ProfileFollowsPage.objects.filter(page_email = un_followed_email , regular_profile_email = email).delete()
+                    print("unfollowed "+un_followed_email)
+
+            if request.POST.get("type") == "profile":
+
+                if "followed_email" in request.POST:
+
+                    followed_email = request.POST.get("followed_email")
+                    followed_profile = RegularProfile.objects.filter(email = followed_email).first()
+                    follow = ProfileFollowsProfile.objects.create(followed_profile_email = followed_profile , follower_email = profile)
+                    print("followed "+followed_email)
+
+                if "un_followed_email" in request.POST:
+
+                    un_followed_email= request.POST.get("un_followed_email")
+
+                    unfollow = ProfileFollowsProfile.objects.filter(followed_profile_email = un_followed_email , follower_email = email).delete()
+                    print("unfollowed "+un_followed_email)
 
         if 'update_id' in request.GET:
 
@@ -945,69 +944,38 @@ def profile(request):
     album_cover = Photos.objects.filter(regular_profile_email=email).order_by("album_id").distinct()
 
 
-    #suggestions
-    f_profiles = []
-    f_pages = []
-
-    followed1 = PageFollowsPage.objects.filter(follower_email=email)
-    for each in followed1:
-       f_pages.append(each.followed_page_email.email)
-
-    followed2 = PageFollowsProfile.objects.filter(follower_page_email=email)
-    for each in followed2:
-       f_profiles.append(each.followed_profile_email.email)
-
-    sugges1 = []
-    sugges2 = []
-
-    for each in followed1:
-       profs = PageFollowsProfile.objects.filter(follower_page_email=each.followed_page_email.email)
-       page_s = PageFollowsPage.objects.filter(follower_email=each.followed_page_email.email)
-
-       for obj in profs:
-          profile = RegularProfile.objects.get(email=obj.followed_profile_email.email)
-          if profile.email not in f_profiles:
-             sugges1.append(profile)
-
-       for obj in page_s:
-          p = Page.objects.get(email= obj.followed_page_email.email)
-          if p.email not in f_pages:
-             sugges2.append(p)
 
 
+    #suggestions algorithm
 
-    for each in followed2:
-       profs = ProfileFollowsProfile.objects.filter(follower_email=each.followed_profile_email.email)
-       page_s = ProfileFollowsPage.objects.filter(regular_profile_email=each.followed_profile_email.email)
+    profile_following_profile = [profile.followed_profile_email for profile in ProfileFollowsProfile.objects.filter(follower_email__in = [email.followed_profile_email for email in profile_followings])]
+    page_following_page = [page.followed_page_email for page in PageFollowsPage.objects.filter(follower_email__in = [email.page_email for email in page_followings])]
 
-       for obj in profs:
-          profile = RegularProfile.objects.get(email=obj.followed_profile_email.email)
-          if profile.email not in f_profiles:
-             sugges1.append(profile)
+    profile_following_page = [page.page_email for page in ProfileFollowsPage.objects.filter(regular_profile_email__in = [email.followed_profile_email for email in profile_followings])]
+    page_following_profile = [profile.followed_profile_email for profile in PageFollowsProfile.objects.filter(follower_page_email__in = [email.page_email for email in page_followings])]
 
-       for obj in page_s:
-          p = Page.objects.get(email= obj.followed_page_email.email)
-          if p.email not in f_pages:
-             sugges2.append(p)
+    profile_suggestion = set(chain(profile_following_profile,page_following_profile))
+    page_suggestion = set(chain(profile_following_page,page_following_page))
 
-    sugges1.sort(key = lambda x: x.num_followers,reverse=True)
+    for profiles in profile_followings:
+        profile_suggestion.discard(profiles.follower_email)
+        profile_suggestion.discard(profiles.followed_profile_email)
+    for pages in page_followings:
+        profile_suggestion.discard(pages.regular_profile_email)
+        page_suggestion.discard(pages.page_email)
 
-    sugges2.sort(key = lambda x: x.numfollowers,reverse=True)
+    profile_suggestion = list(profile_suggestion)
+    page_suggestion = list(page_suggestion)
 
+    profile_suggestion.sort(key = lambda x: x.num_followers,reverse=True)
+    page_suggestion.sort(key = lambda x: x.numfollowers,reverse=True)
 
+    if len(profile_suggestion)>3:
+       profile_suggestion = profile_suggestion[0:3]
+    if len(page_suggestion)>3:
+       page_suggestion = page_suggestion[0:3]
 
-    suggestions = dict()
-    if len(sugges1)>3:
-       sugges1 = sugges1[0:3]
-    if len(sugges2)>3:
-       sugges2 = sugges2[0:3]
-
-    for each in sugges1:
-       suggestions[each.email] = each.firstname+" "+each.lastname
-
-    for each in sugges2:
-       suggestions[each.email] = each.title
-
+    suggestions = list(chain(profile_suggestion,page_suggestion))
 
     context = dict()
 

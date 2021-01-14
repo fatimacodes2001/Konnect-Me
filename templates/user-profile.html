@@ -261,12 +261,12 @@
 
 											<ul class="flw-status">
 												<li>
-													<span>Following</span>
-													<b id="following-popup" >{{ followings|length }}</b>
+													<span>Followings</span>
+													<b id="following-popup" num = "{{ followings|length }}" >{{ followings|length }}</b>
 												</li>
 												<li>
 													<span>Followers</span>
-													<b id="follower-popup" >{{ followers|length }}</b>
+													<b id="follower-popup" num = "{{ followers|length }}" >{{ followers|length }}</b>
 												</li>
 											</ul>
 										</div><!--user_pro_status end-->
@@ -279,14 +279,32 @@
 										<div class="suggestions-list">
 											{% if suggestions %}
 											{% for suggestion in suggestions %}
+											{% is_profile suggestion as isprofile %}
+											{% is_page suggestion as ispage %}
+											{% if isprofile %}
+
 											<div class="suggestion-usd">
 												<img src="media/{{suggestion.email}}/{{suggestion.email}}/{{suggestion.email}}35.jpg" alt="">
 												<div class="sgt-text">
 													<h4>{{suggestion.firstname}} {{suggestion.lastname}}</h4>
 													<span>{{suggestion.work_profile}}</span>
 												</div>
-												<span><i class="la la-plus"></i></span>
+												<span><i  id="{% get_suggestion_profile_id suggestion.email %}" type="profile" followed-email = "{{suggestion.email}}" class="la la-plus"></i></span>
 											</div>
+
+											{% elif ispage %}
+
+											<div class="suggestion-usd">
+												<img src="media/{{suggestion.email}}/{{suggestion.email}}/{{suggestion.email}}35.jpg" alt="">
+												<div class="sgt-text">
+													<h4>{{suggestion.title}}</h4>
+													<span>{{suggestion.companytype}}</span>
+												</div>
+												<span><i  id="{% get_suggestion_page_id suggestion.email %}" type="page" followed-email = "{{suggestion.email}}" class="la la-plus"></i></span>
+											</div>
+
+											{% endif %}
+
 											{% endfor %}
 											{% endif %}
 											<div class="view-more">
@@ -599,139 +617,18 @@
 		<div class="following-popup pst-pj">
 			<div class="following-box">
 				<h3>Followings</h3>
-				<div class="following-box-fields">
-							<div class="suggestions-list">
-								{% if followings %}
-								{% for following in followings %}
-								{% is_profile following as isprofile %}
-								{% is_page following as ispage %}
-								{% if isprofile %}
-								<div class="suggestion-usd">
-									<img src="media/{{following.followed_profile_email.email}}/{{ following.followed_profile_email.email }}/{{ following.followed_profile_email.email }}35.jpg" alt="">
-									<div class="sgt-text">
-										<h4>{{ following.followed_profile_email.firstname }} {{ following.followed_profile_email.lastname }}</h4>
-										<span>{{ following.followed_profile_email.work_profile }}</span>
-									</div>
-									<div class="unfollow">
-										<ul>
-											<li><a id="un-follow" href="#" title="">Unfollow</a></li>
-										</ul>
-									</div>
-								</div>
-								{% elif ispage %}
-								<div class="suggestion-usd">
-									<img src="media/{{following.page_email.email}}/{{ following.page_email.email }}/{{ following.page_email.email }}35.jpg" alt="">
-									<div class="sgt-text">
-										<h4>{{ following.page_email.title }}</h4>
-										<span>{{ following.page_email.companytype }}</span>
-									</div>
-									<div class="unfollow">
-										<ul>
-											<li><a id="un-follow" href="#" title="">Unfollow</a></li>
-										</ul>
-									</div>
-								</div>
-								{% endif %}
-								{% endfor %}
-								{% endif %}
-							</div><!--suggestions-list end-->
+				<div id="load-followings" class="following-box-fields">
+
 				</div><!--following-box-fields end-->
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--following-box end-->
 		</div><!--following-popup end-->
 
-				<div class="follower-popup pst-pj">
-					<div class="follower-box">
+		<div class="follower-popup pst-pj">
+				<div class="follower-box">
 						<h3>Followers</h3>
-						<div class="follower-box-fields">
-									<div class="suggestions-list">
+						<div id="load-followers" class="follower-box-fields">
 
-										{% for tester in followers69 %}
-										{% is_profile tester as isprofile %}
-										{% is_page tester as ispage %}
-										{% if isprofile %}
-
-
-
-
-										{% elif ispage %}
-										<!-- <h1>Page</h1> -->
-										{% endif %}
-										{% endfor %}
-
-										{% if followed_followers %}
-										{% for followed_follower in followed_followers %}
-										{% is_profile followed_follower as isprofile %}
-										{% is_page followed_follower as ispage %}
-										{% if isprofile %}
-										<!-- Code for people who you have followed -->
-										<div class="suggestion-usd">
-											<img src="media/{{followed_follower.followed_profile_email.email}}/{{ followed_follower.followed_profile_email.email }}/{{ followed_follower.followed_profile_email.email }}35.jpg" alt="">
-											<!-- <img src="media/{{followed_follower.followed_profile_email.email}}/{{followed_follower.followed_profile_email.email}}/{{followed_followed.followed_profile_email.email}}.jpg" alt=""> -->
-											<div class="sgt-text">
-
-												<h4>{{ followed_follower.followed_profile_email.firstname }}{{ followed_follower.followed_profile_email.lastname }}</h4>
-
-												<span>{{ followed_follower.followed_profile_email.work_profile }}</span>
-											</div>
-											<div class="unfollow">
-												<ul>
-													<li><a id="un-follow" href="#" title="">Unfollow</a></li>
-												</ul>
-											</div>
-										</div>
-
-										{% elif ispage %}
-
-										<div class="suggestion-usd">
-
-											<img src="media/{{followed_follower.page_email.email}}/{{ followed_follower.page_email.email }}/{{ followed_follower.page_email.email }}35.jpg" alt="">
-											<!-- <img src="media/{{followed_follower.followed_profile_email.email}}/{{followed_follower.followed_profile_email.email}}/{{followed_followed.followed_profile_email.email}}.jpg" alt=""> -->
-											<div class="sgt-text">
-
-												<h4>{{ followed_follower.page_email.title }}</h4>
-
-												<span>{{ followed_follower.page_email.companytype }}</span>
-											</div>
-											<div class="unfollow">
-												<ul>
-													<li><a id="un-follow" href="#" title="">Unfollow</a></li>
-												</ul>
-											</div>
-										</div>
-
-										{% endif %}
-										{% endfor %}
-										{% endif %}
-
-										{% if unfollowed_followers %}
-
-										{% for unfollowed_follower in unfollowed_followers %}
-										{% is_profile unfollowed_follower as isprofile %}
-										{% is_page unfollowed_follower as ispage %}
-										{% if isprofile %}
-											<div class="suggestion-usd">
-												<img src="media/{{unfollowed_follower.follower_email.email}}/{{unfollowed_follower.follower_email.email}}/{{unfollowed_follower.follower_email.email}}35.jpg" alt="">
-												<div class="sgt-text">
-													<h4>{{ unfollowed_follower.follower_email.firstname }} {{ unfollowed_follower.follower_email.lastname }}</h4>
-													<span>{{ unfollowed_follower.follower_email.work_profile }}</span>
-												</div>
-													<span><i class="la la-plus"></i></span>
-											</div>
-										{% elif ispage %}
-										<div class="suggestion-usd">
-											<img src="media/{{unfollowed_follower.follower_page_email.email}}/{{unfollowed_follower.follower_page_email.email}}/{{unfollowed_follower.follower_page_email.email}}35.jpg" alt="">
-											<div class="sgt-text">
-												<h4>{{ unfollowed_follower.follower_page_email.title }}</h4>
-												<span>{{ unfollowed_follower.follower_page_email.companytype }}</span>
-											</div>
-												<span><i class="la la-plus"></i></span>
-										</div>
-										{% endif %}
-										{% endfor %}
-										{% endif %}
-
-									</div><!--suggestions-list end-->
 						</div><!--follower-box-fields end-->
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--follower-box end-->

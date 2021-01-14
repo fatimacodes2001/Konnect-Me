@@ -28,6 +28,53 @@ $(window).on("load", function() {
     //  ============= FOLLOWING POPUP FUNCTION =========
 
     $("#following-popup").on("click", function(){
+
+        $.ajax({
+          type: 'GET',
+          url: '/profile',
+          data: {
+            type:"followings",
+          },
+          success:function(data){
+
+            $('#load-followings').html(data);
+
+            //  ============= UNFOLLOW-FOLLOW FUNCTION =========
+
+            $(".la.la-minus").on("click",function(){
+
+              var followed_email = $(this).attr("followed-email");
+              var id = "#"+$(this).attr("id");
+              var div_id = "#div-"+$(this).attr("id");
+              var type = $(this).attr("type");
+              var num_followings = $("#following-popup").attr("num");
+
+
+              $.ajax({
+                      type: 'POST',
+                      url: '/profile',
+                      data:{
+                        un_followed_email:followed_email,
+                        type:type,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                      },
+
+                      success:function(){
+
+                        num_followings = parseInt(num_followings,10)-1;
+                        $(div_id).fadeOut("slow");
+                        $("#following-popup").text(num_followings);
+                        $("#following-popup").attr("num",num_followings);
+
+                      }
+
+                  });
+
+              });
+          }
+
+      });
+
         $(".following-popup.pst-pj").addClass("active");
         $(".wrapper").addClass("overlay");
         return false;
@@ -43,6 +90,133 @@ $(window).on("load", function() {
 
     $("#follower-popup").on("click", function(){
         console.log("ok")
+
+        $.ajax({
+          type: 'GET',
+          url: '/profile',
+          data: {
+            type:"followers",
+          },
+          success:function(data){
+            $('#load-followers').html(data);
+
+                //  ============= FOLLOW-UNFOLLOW FUNCTION =========
+
+                $(".la.la-plus").on("click",function(){
+
+                    var un_followed_email = $(this).attr("followed-email");
+                    var id = "#"+$(this).attr("id");
+                    var type = $(this).attr("type");
+                    var num_followings = $("#following-popup").attr("num");
+
+                    if( $(id).attr("class") === "la la-plus"){
+
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:un_followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+
+                                num_followings = parseInt(num_followings,10)+1;
+                                $(id).removeClass("la-plus").addClass("la-minus");
+                                $("#following-popup").text(num_followings);
+                                $("#following-popup").attr("num",num_followings);
+
+
+                            }
+
+                          });
+
+                        }
+
+                        else if( $(id).attr("class") === "la la-minus"){
+
+                        $.ajax({
+                                type: 'POST',
+                                url: '/profile',
+                                data:{
+                                  un_followed_email:un_followed_email,
+                                  type:type,
+                                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success:function(){
+
+                                    num_followings = parseInt(num_followings,10)-1;
+                                    $(id).removeClass("la-minus").addClass("la-plus");
+                                    $("#following-popup").text(num_followings);
+                                    $("#following-popup").attr("num",num_followings);
+
+                                }
+
+                              });
+
+                            };
+
+                });
+
+                //  ============= UNFOLLOW-FOLLOW FUNCTION =========
+
+                $(".la.la-minus").on("click",function(){
+
+                  var followed_email = $(this).attr("followed-email");
+                  var id = "#"+$(this).attr("id");
+                  var div_id = "#div-"+$(this).attr("id");
+                  var type = $(this).attr("type");
+                  var num_followings = $("#following-popup").attr("num");
+
+                  if( $(id).attr("class") === "la la-minus"){
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              un_followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)-1;
+                              $(id).removeClass("la-minus");
+                              $(id).addClass("la-plus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+
+                            }
+                    });
+                  }
+                  else if( $(id).attr("class") === "la la-plus"){
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)+1;
+                              $(id).removeClass("la-plus");
+                              $(id).addClass("la-minus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+
+
+                            }
+                    });
+
+                  };
+
+                });
+
+
+          }
+        });
+
         $(".follower-popup.pst-pj").addClass("active");
         $(".wrapper").addClass("overlay");
         return false;
@@ -75,6 +249,7 @@ $(window).on("load", function() {
             success:function(){
               $(status_id).text("Shares "+num_shares);
               $(status_id).attr("status","shared");
+
             }
           });
         }
@@ -82,6 +257,7 @@ $(window).on("load", function() {
           alert("You have already shared this status")
         };
     });
+
 
     //  ============= LIKE-UNLIKE FUNCTION =========
 
@@ -200,6 +376,122 @@ $(window).on("load", function() {
               },
               success:function(data){
                 $('#likers').html(data);
+
+
+                //  ============= FOLLOW-UNFOLLOW FUNCTION =========
+
+                $(".la.la-plus").on("click",function(){
+
+                    var un_followed_email = $(this).attr("followed-email");
+                    var id = "#"+$(this).attr("id");
+                    var type = $(this).attr("type");
+                    var num_followings = $("#following-popup").attr("num");
+
+                    if( $(id).attr("class") === "la la-plus"){
+
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:un_followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+
+                                num_followings = parseInt(num_followings,10)+1;
+                                $(id).removeClass("la-plus").addClass("la-minus");
+                                $("#following-popup").text(num_followings);
+                                $("#following-popup").attr("num",num_followings);
+
+
+                            }
+
+                          });
+
+                        }
+
+                        else if( $(id).attr("class") === "la la-minus"){
+
+                        $.ajax({
+                                type: 'POST',
+                                url: '/profile',
+                                data:{
+                                  un_followed_email:un_followed_email,
+                                  type:type,
+                                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success:function(){
+
+                                    num_followings = parseInt(num_followings,10)-1;
+                                    $(id).removeClass("la-minus").addClass("la-plus");
+                                    $("#following-popup").text(num_followings);
+                                    $("#following-popup").attr("num",num_followings);
+
+                                }
+
+                              });
+
+                            };
+
+                });
+
+                //  ============= UNFOLLOW-FOLLOW FUNCTION =========
+
+                $(".la.la-minus").on("click",function(){
+
+                  var followed_email = $(this).attr("followed-email");
+                  var id = "#"+$(this).attr("id");
+                  var div_id = "#div-"+$(this).attr("id");
+                  var type = $(this).attr("type");
+                  var num_followings = $("#following-popup").attr("num");
+
+                  if( $(id).attr("class") === "la la-minus"){
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              un_followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)-1;
+                              $(id).removeClass("la-minus");
+                              $(id).addClass("la-plus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+                            }
+                    });
+                  }
+
+                  else if( $(id).attr("class") === "la la-plus"){
+
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)+1;
+                              $(id).removeClass("la-plus");
+                              $(id).addClass("la-minus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+
+                            }
+
+                    });
+
+                  };
+
+                });
+
               }
             });
           }
@@ -238,6 +530,122 @@ $(window).on("load", function() {
               },
               success:function(data){
                 $('#sharer').html(data);
+
+
+                //  ============= FOLLOW-UNFOLLOW FUNCTION =========
+
+                $(".la.la-plus").on("click",function(){
+
+                    var un_followed_email = $(this).attr("followed-email");
+                    var id = "#"+$(this).attr("id");
+                    var type = $(this).attr("type");
+                    var num_followings = $("#following-popup").attr("num");
+
+                    if( $(id).attr("class") === "la la-plus"){
+
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:un_followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+
+                                num_followings = parseInt(num_followings,10)+1;
+                                $(id).removeClass("la-plus").addClass("la-minus");
+                                $("#following-popup").text(num_followings);
+                                $("#following-popup").attr("num",num_followings);
+
+
+                            }
+
+                          });
+
+                        }
+
+                        else if( $(id).attr("class") === "la la-minus"){
+
+                        $.ajax({
+                                type: 'POST',
+                                url: '/profile',
+                                data:{
+                                  un_followed_email:un_followed_email,
+                                  type:type,
+                                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success:function(){
+
+                                    num_followings = parseInt(num_followings,10)-1;
+                                    $(id).removeClass("la-minus").addClass("la-plus");
+                                    $("#following-popup").text(num_followings);
+                                    $("#following-popup").attr("num",num_followings);
+
+                                }
+
+                              });
+
+                            };
+
+                });
+
+                //  ============= UNFOLLOW-FOLLOW FUNCTION =========
+
+                $(".la.la-minus").on("click",function(){
+
+                  var followed_email = $(this).attr("followed-email");
+                  var id = "#"+$(this).attr("id");
+                  var div_id = "#div-"+$(this).attr("id");
+                  var type = $(this).attr("type");
+                  var num_followings = $("#following-popup").attr("num");
+
+                  if( $(id).attr("class") === "la la-minus"){
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              un_followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)-1;
+                              $(id).removeClass("la-minus");
+                              $(id).addClass("la-plus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+
+                            }
+                    });
+                  }
+                  else if( $(id).attr("class") === "la la-plus"){
+                    $.ajax({
+                            type: 'POST',
+                            url: '/profile',
+                            data:{
+                              followed_email:followed_email,
+                              type:type,
+                              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success:function(){
+                              num_followings = parseInt(num_followings,10)+1;
+                              $(id).removeClass("la-plus");
+                              $(id).addClass("la-minus");
+                              $("#following-popup").text(num_followings);
+                              $("#following-popup").attr("num",num_followings);
+
+
+
+                            }
+                    });
+
+                  };
+
+                });
+
+
               }
             });
           }
@@ -252,6 +660,66 @@ $(window).on("load", function() {
         $(".wrapper").removeClass("overlay");
         return false;
     });
+
+
+    //  ============= FOLLOW-UNFOLLOW FUNCTION =========
+
+    $(".la.la-plus").on("click",function(){
+
+        var un_followed_email = $(this).attr("followed-email");
+        var id = "#"+$(this).attr("id");
+        var type = $(this).attr("type");
+        var num_followings = $("#following-popup").attr("num");
+
+        if( $(id).attr("class") === "la la-plus"){
+
+        $.ajax({
+                type: 'POST',
+                url: '/profile',
+                data:{
+                  followed_email:un_followed_email,
+                  type:type,
+                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+
+                    num_followings = parseInt(num_followings,10)+1;
+                    $(id).removeClass("la-plus").addClass("la-minus");
+                    $("#following-popup").text(num_followings);
+                    $("#following-popup").attr("num",num_followings);
+
+
+                }
+
+              });
+
+            }
+
+            else if( $(id).attr("class") === "la la-minus"){
+
+            $.ajax({
+                    type: 'POST',
+                    url: '/profile',
+                    data:{
+                      un_followed_email:un_followed_email,
+                      type:type,
+                      csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success:function(){
+
+                        num_followings = parseInt(num_followings,10)-1;
+                        $(id).removeClass("la-minus").addClass("la-plus");
+                        $("#following-popup").text(num_followings);
+                        $("#following-popup").attr("num",num_followings);
+
+                    }
+
+                  });
+
+                };
+
+          });
+
 
 
     //  ============= POST PROJECT POPUP FUNCTION =========

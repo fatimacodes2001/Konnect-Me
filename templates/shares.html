@@ -1,4 +1,6 @@
 {% load static %}
+{% load share_tag %}
+
 <div class="suggestions-list">
   {% if shares %}
   {% for share in shares %}
@@ -12,11 +14,7 @@
         <h4>{{ following.followed_profile_email.firstname }}{{ following.followed_profile_email.lastname }}</h4>
         <span>{{ following.followed_profile_email.work_profile }}</span>
       </div>
-      <div class="unfollow">
-        <ul>
-          <li><a id="un-follow" href="#" title="">Unfollow</a></li>
-        </ul>
-      </div>
+      <span><i  id="{% get_sharer_un_following_profile_id following.followed_profile_email.email %}" type="profile" followed-email = "{{following.followed_profile_email.email}}" class="la la-minus"></i></span>
     </div>
   {% endif %}
   {% endfor %}
@@ -24,14 +22,25 @@
   {% if non_followings %}
   {% for non_following in non_followings %}
   {% if share.regular_profile_email == non_following %}
-    <div class="suggestion-usd">
-      <img src="media/{{non_following.email}}/{{non_following.email}}/{{non_following.email}}35.jpg" alt="">
-      <div class="sgt-text">
-        <h4>{{ non_following.firstname }} {{ non_following.lastname }}</h4>
-        <span>{{ non_following.work_profile }}</span>
-      </div>
-        <span><i class="la la-plus"></i></span>
+  {% is_self profile.email non_following.email as isself %}
+  {% if isself %}
+  <div class="suggestion-usd">
+    <img src="media/{{non_following.email}}/{{non_following.email}}/{{non_following.email}}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ non_following.firstname }} {{ non_following.lastname }}</h4>
+      <span>{{ non_following.work_profile }}</span>
     </div>
+  </div>
+  {% elif not isself %}
+  <div class="suggestion-usd">
+    <img src="media/{{non_following.email}}/{{non_following.email}}/{{non_following.email}}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ non_following.firstname }} {{ non_following.lastname }}</h4>
+      <span>{{ non_following.work_profile }}</span>
+    </div>
+      <span><i  id="{% get_sharer_following_profile_id non_following.email %}" type="profile" followed-email = "{{non_following.email}}" class="la la-plus"></i></span>
+  </div>
+  {% endif %}
   {% endif %}
   {% endfor %}
   {% endif %}

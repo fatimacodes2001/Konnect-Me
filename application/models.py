@@ -110,7 +110,7 @@ class PageLikesPhotos(models.Model):
 
 class PageLikesStatus(models.Model):
     objects = models.Manager()
-    update = models.OneToOneField('Photos', models.DO_NOTHING, primary_key=True)
+    update = models.OneToOneField('Status', models.DO_NOTHING, primary_key=True)
     page_email = models.ForeignKey(Page, models.DO_NOTHING, db_column='page_email')
     status_like_id = models.IntegerField()
 
@@ -249,4 +249,3 @@ class Status(models.Model):
     class Meta:
                  db_table = 'status'
                  get_latest_by = 'update_id'
-

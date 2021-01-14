@@ -1023,33 +1023,6 @@ main {
 	color: #fff;
 }
 
-.unfollow {
-	float: right;
-	margin-top: 0px;
-}
-.unfollow ul li {
-	display: inline-block;
-	margin-right: 0px;
-}
-.unfollow ul li:last-child {
-	margin-right: 0;
-}
-.unfollow ul li a {
-	color: #cc3333;
-	font-size: 15px;
-	display: inline-block;
-	background-color: #fff;
-	border : 2px solid #cc3333;
-	height: 35px;
-	padding: 0 15px;
-	line-height: 30px;
-	font-weight: 500;
-}
-.unfollow ul li a:hover,
-.unfollow ul li a.active {
-	background-color: #cc3333;
-	color: #fff;
-}
 
 
 /* ================ posts-section ================== */
