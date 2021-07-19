@@ -86,7 +86,7 @@ DATABASES = {
         ##'NAME': BASE_DIR / 'db.sqlite3',
         'NAME':'konnect_me',
         'USER':'root',
-        'PASSWORD':'Tuchapax-999',
+        'PASSWORD':'mamhania',
         'HOST':'127.0.0.1',
         'PORT' : '3306'
     }
