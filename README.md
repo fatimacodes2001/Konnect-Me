@@ -3,9 +3,17 @@ KonnectMe is a social-networking website created using Django. It helps the comp
 
 # Screenshots
 ![assets/main.png](assets/main.png)
+
+
 ![assets/feed.png](assets/feed.png)
+
+
 ![assets/jobs.png](assets/jobs.png)
+
+
 ![assets/company.png](assets/company.png)
+
+
 ![assets/form1.png](assets/form1.png)
 
 
