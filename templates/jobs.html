@@ -57,13 +57,12 @@
 						
 
 							<li>
-								<a href="profiles.html" title="">
+								<a href="#" title="">
 									<span><img src="{% static 'images/icon4.png'  %}" alt=""></span>
 									Profiles
 								</a>
 								<ul>
-									<li><a href="user-profile.html" title="">User Profile</a></li>
-									<li><a href="my-profile-feed.html" title="">my-profile-feed</a></li>
+									<li><a href="{%url 'profile'%}" title="">User Profile</a></li>
 								</ul>
 							</li>
 							<li>
@@ -84,7 +83,7 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
+							<img src="media/{{profile.email}}/{{profile.email}}/{{profile.email}}35.jpg" alt="">
 							<a href="#" title="">{{name}}</a>
 							<i class="la la-sort-down"></i>
 						</div>
@@ -97,7 +96,7 @@
 								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
 						
 							</ul>
-							<h3 class="tc"><a href="sign-in.html" title="">Logout</a></h3>
+							<h3 class="tc"><a href="{%url 'login'%}" title="">Logout</a></h3>
 						</div><!--user-account-settingss end-->
 					</div>
 				</div><!--header-data end-->
@@ -147,19 +146,31 @@
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
+													<img src="media/{{job.page_email.email}}/{{job.page_email.email}}/{{job.page_email.email}}35.jpg" alt="">
 													<div class="usy-name">
 														<h3>{{ page|get_item:job.page_email }}</h3>
-														<span><img src="{% static 'images/clock.png'  %}" alt="">Date to be added</span>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">job.postdate</span>
 													</div>
 												</div>
 												<div class="ed-opts">
 													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 													<ul class="ed-options">
-
-														<li><a href="#" title="">Apply</a></li>
 														
+														{% if applies|get_item:job.job_id is False %}
+														<form method="POST" action="{%url 'apply'%}">
+															{% csrf_token %}
+															<li><button  type="submit" name="job_post" value="{{job.job_id}}">Apply</button></li>
 
+														</form>
+														{% endif %}
+
+														{% if applies|get_item:job.job_id is True %}
+														<form method="POST" action="{%url 'cancel'%}">
+															{% csrf_token %}
+															<li><button  type="submit" name="job_post" value="{{job.job_id}}">Cancel</button></li>
+
+														</form>
+														{% endif %}
 
 													</ul>
 												</div>
@@ -167,7 +178,7 @@
 											<div class="epi-sec">
 												<ul class="descp">
 													
-													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>Pakistan</span></li>
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>{{job.city}},{{job.state}}</span></li>
 												</ul>
 												
 											</div>
@@ -222,108 +233,8 @@
 
 
 
-		<div class="post-popup pst-pj">
-			<div class="post-project">
-				<h3>Post a project</h3>
-				<div class="post-project-fields">
-					<form>
-						<div class="row">
-							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="Title">
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>Category</option>
-										<option>Category 1</option>
-										<option>Category 2</option>
-										<option>Category 3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<input type="text" name="skills" placeholder="Skills">
-							</div>
-							<div class="col-lg-12">
-								<div class="price-sec">
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-									<span>To</span>
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<textarea name="description" placeholder="Description"></textarea>
-							</div>
-							<div class="col-lg-12">
-								<ul>
-									<li><button class="active" type="submit" value="post">Post</button></li>
-									<li><a href="#" title="">Cancel</a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div><!--post-project-fields end-->
-				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
-			</div><!--post-project end-->
-		</div><!--post-project-popup end-->
-
-		<div class="post-popup job_post">
-			<div class="post-project">
-				<h3>Post a job</h3>
-				<div class="post-project-fields">
-					<form>
-						<div class="row">
-							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="Title">
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>Category</option>
-										<option>Category 1</option>
-										<option>Category 2</option>
-										<option>Category 3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<input type="text" name="skills" placeholder="Skills">
-							</div>
-							<div class="col-lg-6">
-								<div class="price-br">
-									<input type="text" name="price1" placeholder="Price">
-									<i class="la la-dollar"></i>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="inp-field">
-									<select>
-										<option>Full Time</option>
-										<option>Half time</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<textarea name="description" placeholder="Description"></textarea>
-							</div>
-							<div class="col-lg-12">
-								<ul>
-									<li><button class="active" type="submit" value="post">Post</button></li>
-									<li><a href="#" title="">Cancel</a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div><!--post-project-fields end-->
-				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
-			</div><!--post-project end-->
-		</div><!--post-project-popup end-->
+		
+		
 
 
 	</div><!--theme-layout end-->

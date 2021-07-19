@@ -3,13 +3,16 @@ from PIL import Image
 
 def resizer(image,requiredSize):
     width, height = image.size
-    if height >= requiredSize and width >= requiredSize:
+    if height >= requiredSize or width >= requiredSize:
         tempHeight = height
         tempWidth = width
-        while (tempHeight > requiredSize and tempWidth > requiredSize):
+
+        while (tempHeight > requiredSize  or tempWidth > requiredSize):
             tempHeight = tempHeight / 1.1
             tempWidth = tempWidth / 1.1
         resizedImage = image.resize((int(tempWidth), int(tempHeight)), Image.ANTIALIAS)
+    else:
+        resizedImage = image
     return resizedImage
 
 def crop(image):
@@ -18,6 +21,12 @@ def crop(image):
     centerX = width/2
     if(width>height):
         croppedimage = image.crop((centerX-centerY, 0, centerX+centerY, height))
+        return croppedimage
+
     if(height>width):
         croppedimage = image.crop((0, centerY-centerX, width, centerY+centerX))
-    return croppedimage
+        return croppedimage
+
+    else:
+        croppedimage = image
+        return croppedimage

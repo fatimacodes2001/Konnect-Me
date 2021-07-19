@@ -13,13 +13,14 @@ class Album(models.Model):
     album_id = models.AutoField(primary_key=True)
     page_email = models.ForeignKey('Page', models.DO_NOTHING, db_column='page_email', blank=True, null=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email', blank=True, null=True)
-    album_col = models.CharField(max_length=45, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     num_photos = models.IntegerField(blank=True, null=True)
 
     class Meta:
                  db_table = 'album'
 
+    def __str__(self):
+        return self.name
 
 class AppliesFor(models.Model):
     objects = models.Manager()
@@ -52,7 +53,8 @@ class Job(models.Model):
     salary = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=300, blank=True, null=True)
     contact_detail = models.CharField(max_length=200, blank=True, null=True)
-    location = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=45, blank=True, null=True)
+    state = models.CharField(max_length=45, blank=True, null=True)
     postdate = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -129,8 +131,9 @@ class Photos(models.Model):
     caption = models.CharField(max_length=500, blank=True, null=True)
     date = models.DateTimeField(blank=True, null=True)
     num_likes = models.IntegerField(blank=True, null=True)
-    num_lhares = models.IntegerField(blank=True, null=True)
-    location = models.CharField(max_length=100, blank=True, null=True)
+    num_shares = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=45, blank=True, null=True)
+    state = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
                  db_table = 'photos'
@@ -185,6 +188,7 @@ class ProfileSharesPhotos(models.Model):
     update = models.OneToOneField(Photos, models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     share_id = models.IntegerField()
+    date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = 'profile_shares_photos'
@@ -196,10 +200,15 @@ class ProfileSharesStatus(models.Model):
     update = models.OneToOneField('Status', models.DO_NOTHING, primary_key=True)
     regular_profile_email = models.ForeignKey('RegularProfile', models.DO_NOTHING, db_column='regular_profile_email')
     share_id = models.IntegerField()
+    date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
                  db_table = 'profile_shares_status'
                  unique_together = (('update', 'regular_profile_email', 'share_id'),)
+
+
+class GeeksModel(models.Model):
+	img=models.ImageField(upload_to="images")
 
 
 class RegularProfile(models.Model):
@@ -244,7 +253,9 @@ class Status(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     num_shares = models.IntegerField(blank=True, null=True)
     num_likes = models.IntegerField(blank=True, null=True)
-    location = models.CharField(max_length=45, blank=True, null=True)
+    city = models.CharField(max_length=45, blank=True, null=True)
+    state = models.CharField(max_length=45, blank=True, null=True)
+
 
     class Meta:
                  db_table = 'status'

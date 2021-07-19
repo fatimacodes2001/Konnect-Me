@@ -1,31 +1,75 @@
 {% load static %}
+
 <h3>{{ clicked_album.name }}</h3>
+
+{% if profile %}
+
 <div class="images-field">
     <div class="gallery_pf">
       <div class="row" >
         <div>
-        {% if clicked_album.name == "Profile Pictures" %}
-        {% if photos %}
-        {% for photo in photos %}
-        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-          <div class="gallery_pt_2">
-            <img id="image-path" src=" media/{{ profile.email }}/{{ profile.email }}/{{ profile.email }}.jpg" alt="">
-            <a href="media/{{ profile.email }}/{{ profile.email }}/{{ profile.email }}.jpg" title="" target="_blank"  ><img src="{% static 'images/all-out.png' %}" alt=""></a>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+            {% if clicked_album.name == "Profile Pictures" %}
+            {% if photos %}
+            {% for photo in photos %}
+              <div class="gallery_pt_2">
+                <img id="image-path" src=" media/{{ profile.email }}/{{ profile.email }}/{{ profile.email }}.jpg" alt="">
+                <a href="media/{{ profile.email }}/{{ profile.email }}/{{ profile.email }}.jpg" title="" target="_blank"  ><img src="{% static 'images/all-out.png' %}" alt=""></a>
+              </div>
+            {% endfor %}
+            {% endif %}
+            {% else %}
+            {% if photos %}
+            {% for photo in photos %}
+              <div class="gallery_pt_2">
+                <img id="image-path" src=" media/{{ profile.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" alt="">
+                <a href="media/{{ profile.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" title="" target="_blank" ><img src="{% static 'images/all-out.png' %}" alt=""></a>
+              </div>
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+            </div>
+
           </div>
-          {% endfor %}
-          {% endif %}
-          {% else %}
-          {% if photos %}
-          {% for photo in photos %}
-          <div class="gallery_pt_2">
-            <img id="image-path" src=" media/{{ profile.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" alt="">
-            <a href="media/{{ profile.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" title="" target="_blank" ><img src="{% static 'images/all-out.png' %}" alt=""></a>
-          </div>
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endif %}
-        </div>
         </div>
       </div><!--gallery_pf end-->
     </div><!--portfolio-gallery-sec end-->
+
+{% endif %}
+
+{% if page %}
+
+<div class="images-field">
+    <div class="gallery_pf">
+      <div class="row" >
+        <div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+            {% if clicked_album.name == "Profile Pictures" %}
+            {% if photos %}
+            {% for photo in photos %}
+              <div class="gallery_pt_2">
+                <img id="image-path" src=" media/{{ page.email }}/{{ page.email }}/{{ page.email }}.jpg" alt="">
+                <a href="media/{{ page.email }}/{{ page.email }}/{{ page.email }}.jpg" title="" target="_blank"  ><img src="{% static 'images/all-out.png' %}" alt=""></a>
+              </div>
+            {% endfor %}
+            {% endif %}
+            {% else %}
+            {% if photos %}
+            {% for photo in photos %}
+              <div class="gallery_pt_2">
+                <img id="image-path" src=" media/{{ page.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" alt="">
+                <a href="media/{{ page.email }}/{{ clicked_album.album_id }}/{{ photo.update_id }}.jpg" title="" target="_blank" ><img src="{% static 'images/all-out.png' %}" alt=""></a>
+              </div>
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div><!--gallery_pf end-->
+    </div><!--portfolio-gallery-sec end-->
+
+{% endif %}

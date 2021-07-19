@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WorkWise Html Template</title>
+<title>KonnectMe</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -34,7 +34,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
+						<a href="{%url 'feed'%}" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
 						<form>
@@ -54,13 +54,12 @@
 						
 
 							<li>
-								<a href="profiles.html" title="">
+								<a href="#" title="">
 									<span><img src="{% static 'images/icon4.png'  %}" alt=""></span>
 									Profiles
 								</a>
 								<ul>
-									<li><a href="user-profile.html" title="">User Profile</a></li>
-									<li><a href="my-profile-feed.html" title="">my-profile-feed</a></li>
+									<li><a href="{%url 'profile'%}" title="">User Profile</a></li>
 								</ul>
 							</li>
 							<li>
@@ -81,7 +80,7 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
+							<img src="media/{{profile.email}}/{{profile.email}}/{{profile.email}}35.jpg" alt="">
 							<a href="#" title="">{{name}}</a>
 							<i class="la la-sort-down"></i>
 						</div>
@@ -146,10 +145,10 @@
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
+													<img src="media/{{job.page_email.email}}/{{job.page_email.email}}/{{job.page_email.email}}35.jpg" alt="">
 													<div class="usy-name">
 														<h3>{{ page|get_item:job.page_email }}</h3>
-														<span><img src="{% static 'images/clock.png'  %}" alt="">Date to be added</span>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">{{job.postdate}}</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -166,7 +165,7 @@
 											<div class="epi-sec">
 												<ul class="descp">
 													
-													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>Pakistan</span></li>
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>{{job.city}},{{job.state}}</span></li>
 												</ul>
 												
 											</div>

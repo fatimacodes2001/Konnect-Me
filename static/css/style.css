@@ -1206,6 +1206,93 @@ main {
 	font-weight: 600;
 	margin-bottom: 20px;
 }
+.job_descp_img {
+	width:2000px;
+	max-width: 100%;
+  max-height: 100%;
+  object-fit:cover;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+
+.job_descp.img:hover {opacity: 0.85;}
+
+/* The Modal (background) */
+.img-pops {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+	/* width:2000px; */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.img-pops-content {
+
+  display: block;
+	margin: auto;
+	width: 80%;
+	max-width: 700px;
+	position:absolute;
+  top: 50%;
+  left: 50%;
+	transform: translate(-50%, -50%);
+
+}
+
+/* Add Animation */
+.img-pops-content {
+  animation-name: zoom;
+  animation-duration: 0.4s;
+}
+
+
+@keyframes zoom {
+  from {
+		transform: translate(-50%, -50%) scale(0.2);
+	}
+  to {
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .img-pops-content {
+    width: 100%;
+  }
+}
+
+
+
 .job-dt {
 	float: left;
 	width: 100%;
@@ -1882,6 +1969,15 @@ main {
 	visibility: hidden;
 	z-index: 0;
 }
+
+
+.shared-post{
+	float: top;
+  color: #b2b2b2;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
 .sharer-popup.active {
 	opacity: 1;
 	visibility: visible;

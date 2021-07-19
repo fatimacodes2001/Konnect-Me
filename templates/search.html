@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WorkWise Html Template</title>
+<title>KonnectMe</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -34,7 +34,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
+						<a href="{%url 'feed'%}" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
                         
@@ -61,22 +61,6 @@
 							
 						
 
-							<li>
-								<a href="profiles.html" title="">
-									<span><img src="{% static 'images/icon4.png'  %}" alt=""></span>
-									Profiles
-								</a>
-								<ul>
-									<li><a href="user-profile.html" title="">User Profile</a></li>
-									<li><a href="my-profile-feed.html" title="">my-profile-feed</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="{%url 'jobs'%}" title="">
-									<span><img src="{% static 'images/icon5.png'  %}" alt=""></span>
-									Jobs
-								</a>
-							</li>
 							
 
 
@@ -88,11 +72,7 @@
 						<a href="#" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
-						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="#" title="">{{name}}</a>
-							<i class="la la-sort-down"></i>
-						</div>
+						
 						<div class="user-account-settingss">
 							
 								
@@ -138,7 +118,7 @@
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
+													<img src="media/{{person.email}}/{{person.email}}/{{person.email}}35.jpg" alt="">
 													<div class="usy-name">
 														<h3>{{ person.firstname}}  {{person.lastname}}</h3>
 														
@@ -163,12 +143,17 @@
 												
 												<p> {{person.about_you}} </p>
 												<ul class="skill-tags">
-													<li><a href="#" title="">Qualification: </a></li>
-													<li><a href="#" title="">Vacant Seats: 
-													</a></li>
-													<li><a href="#" title="">Contact: </a></li>
-														
+													 {% for each in skills|get_item:person.email %}
+													<li><a href="#" title=""> {{each.skill}} </a></li>
+													 {% endfor %}	
+
+													 {% for each in interests|get_item:person.email %}
+													<li><a href="#" title=""> {{each.interest}} </a></li>
+													 {% endfor %}
+
 												</ul>
+
+
 											</div>
 											
                                             {% endfor %}
@@ -178,7 +163,7 @@
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
+													<img src="media/{{page.email}}/{{page.email}}/{{page.email}}35.jpg" alt="">
 													<div class="usy-name">
 														<h3>{{ page.title}}</h3>
 														
@@ -206,8 +191,7 @@
 												<p> {{page.about_you}} </p>
 												<ul class="skill-tags">
 													<li><a href="#" title="">Qualification: </a></li>
-													<li><a href="#" title="">Vacant Seats: 
-													</a></li>
+													<li><a href="#" title="">Vacant Seats: </a></li>
 													<li><a href="#" title="">Contact: </a></li>
 														
 												</ul>

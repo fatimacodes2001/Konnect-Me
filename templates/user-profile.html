@@ -24,7 +24,7 @@
 <body>
 
 
-	<div class="wrapper">
+	<div class="wrapper" type = "profile" >
 
 
 
@@ -32,154 +32,34 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src= "{% static 'images/logo.png' %}" alt=""></a>
+						<a href="{%url 'feed'%}" title=""><img src= "{% static 'images/logo.png' %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
-						<form>
-							<input type="text" name="search" placeholder="Search...">
+						<form method="POST" action="{%url 'search'%}">
+                            {% csrf_token %}
+							<input type="text" name="mainsearch" placeholder="Search...">
 							<button type="submit"><i class="la la-search"></i></button>
-						</form>
+                        </form>
 					</div><!--search-bar end-->
 					<nav>
 						<ul>
 							<li>
-								<a href="index.html" title="">
+								<a href="{%url 'feed'%}" title="">
 									<span><img src= "{% static 'images/icon1.png' %}" alt=""></span>
 									Home
 								</a>
 							</li>
+
+
+
 							<li>
-								<a href="{% static "companies.html" %}"title="">
-									<span><img src="{% static 'images/icon2.png' %}" alt=""></span>
-									Companies
-								</a>
-								<ul>
-									<li><a href="companies.html" title="">Companies</a></li>
-									<li><a href="company-profile.html" title="">Company Profile</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="projects.html" title="">
-									<span><img src="{% static 'images/icon3.png' %}"alt=""></span>
-									Projects
-								</a>
-							</li>
-							<li>
-								<a href="profiles.html" title="">
-									<span><img src="{% static 'images/icon4.png' %}" alt=""></span>
-									Profiles
-								</a>
-								<ul>
-									<li><a href="user-profile.html" title="">User Profile</a></li>
-									<li><a href="my-profile-feed.html" title="">my-profile-feed</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="jobs.html" title="">
+								<a href="{%url 'jobs'%}" title="">
 									<span><img src="{% static 'images/icon5.png' %}"alt=""></span>
 									Jobs
 								</a>
 							</li>
-							<li>
-								<a href="#" title="" class="not-box-open">
-									<span><img src="{% static 'images/icon6.png' %}" alt=""></span>
-									Messages
-								</a>
-								<div class="notification-box msg">
-									<div class="nt-title">
-										<h4>Setting</h4>
-										<a href="#" title="">Clear all</a>
-									</div>
-									<div class="nott-list">
-										<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img1.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="messages.html" title="">Jassica William</a> </h3>
-							  					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img2.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
-							  					<p>Lorem ipsum dolor sit amet.</p>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img3.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
-							  					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo incididunt ut labore et dolore magna aliqua.</p>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="view-all-nots">
-						  					<a href="messages.html" title="">View All Messsages</a>
-						  				</div>
-									</div><!--nott-list end-->
-								</div><!--notification-box end-->
-							</li>
-							<li>
-								<a href="#" title="" class="not-box-open">
-									<span><img src="{% static 'images/icon7.png' %}" alt=""></span>
-									Notification
-								</a>
-								<div class="notification-box">
-									<div class="nt-title">
-										<h4>Setting</h4>
-										<a href="#" title="">Clear all</a>
-									</div>
-									<div class="nott-list">
-										<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img1.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img2.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img3.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="notfication-details">
-							  				<div class="noty-user-img">
-							  					<img src="{% static 'images/resources/ny-img2.png' %}" alt="">
-							  				</div>
-							  				<div class="notification-info">
-							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
-							  					<span>2 min ago</span>
-							  				</div><!--notification-info -->
-						  				</div>
-						  				<div class="view-all-nots">
-						  					<a href="#" title="">View All Notification</a>
-						  				</div>
-									</div><!--nott-list end-->
-								</div><!--notification-box end-->
-							</li>
+
+
 						</ul>
 					</nav><!--nav end-->
 					<div class="menu-btn">
@@ -187,48 +67,11 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="#" title="">John</a>
+							<img src="media/{{profile.email}}/{{profile.email}}/{{profile.email}}35.jpg" alt="">
+							<a href="#" title="">{{ profile.firstname}} {{profile.lastname}}</a>
 							<i class="la la-sort-down"></i>
 						</div>
-						<div class="user-account-settingss">
-							<h3>Online Status</h3>
-							<ul class="on-off-status">
-								<li>
-									<div class="fgt-sec">
-										<input type="radio" name="cc" id="c5">
-										<label for="c5">
-											<span></span>
-										</label>
-										<small>Online</small>
-									</div>
-								</li>
-								<li>
-									<div class="fgt-sec">
-										<input type="radio" name="cc" id="c6">
-										<label for="c6">
-											<span></span>
-										</label>
-										<small>Offline</small>
-									</div>
-								</li>
-							</ul>
-							<h3>Custom Status</h3>
-							<div class="search_form">
-								<form>
-									<input type="text" name="search">
-									<button type="submit">Ok</button>
-								</form>
-							</div><!--search_form end-->
-							<h3>Setting</h3>
-							<ul class="us-links">
-								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
-								<li><a href="#" title="">Privacy</a></li>
-								<li><a href="#" title="">Faqs</a></li>
-								<li><a href="#" title="">Terms & Conditions</a></li>
-							</ul>
-							<h3 class="tc"><a href="sign-in.html" title="">Logout</a></h3>
-						</div><!--user-account-settingss end-->
+
 					</div>
 				</div><!--header-data end-->
 			</div>
@@ -236,8 +79,9 @@
 
 
 		<section class="cover-sec">
-			<img src="http://via.placeholder.com/1600x400" alt="">
+			<img src= "{% static 'images/konnectme-cover.jpg' %}" alt="">
 		</section>
+
 
 
 		<main>
@@ -249,7 +93,7 @@
 								<div class="main-left-sidebar">
 									<div class="user_profile">
 										<div class="user-pro-img">
-											<img src= "media/{{profile.email}}/{{profile.email}}/{{profile.email}}.jpg" alt="">
+											<img src= "{% get_pfp profile.email %}" alt="">
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
 
@@ -283,8 +127,8 @@
 											{% is_page suggestion as ispage %}
 											{% if isprofile %}
 
-											<div class="suggestion-usd">
-												<img src="media/{{suggestion.email}}/{{suggestion.email}}/{{suggestion.email}}35.jpg" alt="">
+											<div class="suggestion-usd" href ="profile/{{suggestion.email}}" >
+												<img src="{% get_pfp_mini suggestion.email %}" alt="">
 												<div class="sgt-text">
 													<h4>{{suggestion.firstname}} {{suggestion.lastname}}</h4>
 													<span>{{suggestion.work_profile}}</span>
@@ -292,16 +136,19 @@
 												<span><i  id="{% get_suggestion_profile_id suggestion.email %}" type="profile" followed-email = "{{suggestion.email}}" class="la la-plus"></i></span>
 											</div>
 
+
 											{% elif ispage %}
 
-											<div class="suggestion-usd">
-												<img src="media/{{suggestion.email}}/{{suggestion.email}}/{{suggestion.email}}35.jpg" alt="">
+
+											<div class="suggestion-usd" href ="profile/{{suggestion.email}}" >
+												<img src="{% get_pfp_mini suggestion.email %}" alt="">
 												<div class="sgt-text">
 													<h4>{{suggestion.title}}</h4>
 													<span>{{suggestion.companytype}}</span>
 												</div>
 												<span><i  id="{% get_suggestion_page_id suggestion.email %}" type="page" followed-email = "{{suggestion.email}}" class="la la-plus"></i></span>
 											</div>
+
 
 											{% endif %}
 
@@ -346,15 +193,190 @@
 									</div><!--user-tab-sec end-->
 									<div class="product-feed-tab current" id="feed-dd">
 										<div class="posts-section">
-											{% if status %}
-											{% for update in status %}
+
+											{% if shared_updates %}
+											{% for shared_update in shared_updates %}
 											<div class="post-bar">
 												<div class="post_topbar">
+
 													<div class="usy-dt">
-														<img src="media/{{profile.email}}/{{ profile.email }}/{{ profile.email }}35.jpg" alt="">
+														{% share_status shared_update.update_id profile.email as isshared %}
+														{% if isshared %}
+														{% if shared_update.album_id %}
+														<div class="shared-post">
+															<h3>{{profile.firstname}} {{profile.lastname}} shared this picture</h3>
+														</div>
+														{% else %}
+														<div class="shared-post">
+															<h3>{{profile.firstname}} {{profile.lastname}} shared this post</h3>
+														</div>
+														{% endif %}
+														{% endif %}
+
+
+														{% if shared_update.regular_profile_email %}
+
+														<img src="{% get_pfp_mini shared_update.regular_profile_email.email %}" alt="">
+														<div class="usy-name">
+															<h3>{{ shared_update.regular_profile_email.firstname }} {{ shared_update.regular_profile_email.lastname }}</h3>
+															{% if shared_update.date %}
+															<span><img src="{% static 'images/clock.png' %}" alt="">{% get_time shared_update.date %}</span>
+															{% endif %}
+														</div>
+
+														{% elif shared_update.page_email %}
+
+														<img src="{% get_pfp_mini shared_update.page_email.email %}" alt="">
+														<div class="usy-name">
+															<h3>{{ shared_update.page_email.title }}</h3>
+															{% if shared_update.date %}
+															<span><img src="{% static 'images/clock.png' %}" alt="">{% get_time shared_update.date %}</span>
+															{% endif %}
+														</div>
+
+														{% endif %}
+
+													</div>
+													<!-- <div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="#" title="">Edit Post</a></li>
+															<li><a href="#" title="">Unsaved</a></li>
+															<li><a href="#" title="">Close</a></li>
+															<li><a href="#" title="">Hide</a></li>
+														</ul>
+													</div> -->
+												</div>
+												<div class="epi-sec">
+													<ul class="descp">
+														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ shared_update.city }}, {{ shared_update.state }}</span></li>
+													</ul>
+													<ul class="bk-links">
+
+														<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+													</ul>
+												</div>
+												<div class="job_descp" shared = "true" >
+													<p> {{shared_update.caption}} <a href="#" title="">view more</a></p>
+
+													{% if shared_update.album %}
+													{% is_pfp shared_update.album.album_id as pfp %}
+
+													{% if shared_update.regular_profile_email %}
+
+													{% if pfp %}
+													<img class="job_descp_img" caption="{{shared_update.caption}}" id = "og-img-{{shared_update.update_id}}" update_id = {{shared_update.update_id}} src= "{% get_pfp shared_update.regular_profile_email.email %}" alt="">
+													{% else %}
+													<img class="job_descp_img" caption="{{shared_update.caption}}" id = "og-img-{{shared_update.update_id}}" update_id = {{shared_update.update_id}} src= "../media/{{ shared_update.regular_profile_email.email }}/{{ shared_update.album.album_id }}/{{ shared_update.update_id }}.jpg" alt="">
+													{% endif %}
+
+													{% elif shared_update.page_email %}
+													{% if pfp %}
+													<img class="job_descp_img" caption="{{shared_update.caption}}" id = "og-img-{{shared_update.update_id}}" update_id = {{shared_update.update_id}} src= "{% get_pfp shared_update.page_email.email %}" alt="">
+													{% else %}
+													<img class="job_descp_img" caption="{{shared_update.caption}}" id = "og-img-{{shared_update.update_id}}" update_id = {{shared_update.update_id}} src= "../media/{{ shared_update.page_email.email }}/{{ shared_update.album.album_id }}/{{ shared_update.update_id }}.jpg" alt="">
+													{% endif %}
+
+													{% endif %}
+
+													{% endif %}
+													<div id="modal-{{shared_update.update_id}}" class="img-pops">
+														<span id="close-{{shared_update.update_id}}" class="close">&times;</span>
+														<div>
+															<img class="img-pops-content" id="img-{{shared_update.update_id}}">
+														</div>
+													</div>
+													<ul class="skill-tags">
+														{% if hashtags %}
+														{% for hash in hashtags %}
+														<li><a href="#" title="">{{ hash }}</a></li>
+														{% endfor %}
+														{% endif %}
+													</ul>
+												</div>
+												<div class="job-status-bar" >
+														{% csrf_token %}
+														{% like_status shared_update.update_id profile.email as like %}
+														{% if shared_update.album.album_id %}
+														{% if like %}
+
+															<ul class="like-com active" id="share-{{shared_update.update_id}}-main">
+															<li >
+																<a shared = "true" album_id="{{shared_update.album.album_id}}" id = "share-unlike-switch{{shared_update.update_id}}" class="like-button" status="liked" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" preliked = "1" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" album_id="{{shared_update.album.album_id}}" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span shared = "true" id="share-{{shared_update.update_id}}" album_id="{{shared_update.album.album_id}}" class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" >{{ shared_update.num_likes }}</span>
+															</li>
+															</ul>
+
+														{% else %}
+
+															<ul class="like-com" id="share-{{shared_update.update_id}}-main">
+															<li >
+																<a shared = "true" album_id="{{shared_update.album.album_id}}" id = "share-like-switch{{shared_update.update_id}}" class="like-button" status="unliked" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" preliked = "0" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" album_id="{{shared_update.album.album_id}}" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span shared = "true" id="share-{{shared_update.update_id}}" album_id="{{shared_update.album.album_id}}" class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" >{{ shared_update.num_likes }}</span>
+															</li>
+															</ul>
+														{% endif %}
+
+														{% else %}
+
+														{% if like %}
+
+															<ul class="like-com active" id="share-{{shared_update.update_id}}-main">
+															<li >
+																<a shared = "true" id = "share-unlike-switch{{shared_update.update_id}}" class="like-button" status="liked" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" preliked = "1" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span shared = "true" id="share-{{shared_update.update_id}}" class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" >{{ shared_update.num_likes }}</span>
+															</li>
+															</ul>
+
+														{% else %}
+
+															<ul class="like-com" id="share-{{shared_update.update_id}}-main">
+															<li >
+																<a shared = "true" id = "share-like-switch{{shared_update.update_id}}" class="like-button" status="unliked" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" preliked = "0" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span shared = "true" id="share-{{shared_update.update_id}}" class="likers" update_id="{{shared_update.update_id}}" likes = "{{ shared_update.num_likes }}" >{{ shared_update.num_likes }}</span>
+															</li>
+															</ul>
+														{% endif %}
+
+														{% endif %}
+
+														{% share_status shared_update.update_id profile.email as share %}
+
+														{% if share %}
+														<a>
+															<i class="la la-eye"></i>
+															<span id = "share{{shared_update.update_id}}" status="shared" update_id="{{shared_update.update_id}}" shares = "{{ shared_update.num_shares }}" class = sharer >
+																Shares {{ shared_update.num_shares }}
+															</span>
+														</a>
+														{% else %}
+														<a>
+															<i class="la la-eye"></i>
+															<span id = "share{{shared_update.update_id}}" status="not-shared" update_id="{{shared_update.update_id}}" shares = "{{ shared_update.num_shares }}" class = sharer >
+																Shares {{ shared_update.num_shares }}
+															</span>
+														</a>
+														{% endif %}
+												</div>
+											</div><!--post-bar end-->
+											{% endfor %}
+											{% endif %}
+
+
+											{% if updates %}
+											{% for update in updates %}
+											<div class="post-bar">
+												<div class="post_topbar">
+
+													<div class="usy-dt">
+														<img src="{% get_pfp_mini profile.email %}" alt="">
 														<div class="usy-name">
 															<h3>{{ profile.firstname }} {{ profile.lastname }}</h3>
-															<span><img src="{% static 'images/clock.png' %}" alt="">{{ update.date }} min ago</span>
+															<span><img src="{% static 'images/clock.png' %}" alt="">{% get_time update.date %}</span>
 														</div>
 													</div>
 													<div class="ed-opts">
@@ -369,15 +391,39 @@
 												</div>
 												<div class="epi-sec">
 													<ul class="descp">
-														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ update.location }}</span></li>
+														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ update.city }}, {{ update.state }}</span></li>
 													</ul>
 													<ul class="bk-links">
+
+														{% if update.album_id %}
+
+														<li><a class = "share-button" album_id="{{update.album_id}}" update_id = "{{update.update_id}}" shares = "{{update.num_shares}}" ><i class="la la-share" update_id = "{{update.update_id}}" album_id="{{update.album_id}}" shares = "{{update.num_shares}}" ></i></a></li>
+
+														{% else %}
+
 														<li><a class = "share-button" update_id = "{{update.update_id}}" shares = "{{update.num_shares}}" ><i class="la la-share" update_id = "{{update.update_id}}" shares = "{{update.num_shares}}" ></i></a></li>
+
+														{% endif %}
+
 														<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
 													</ul>
 												</div>
 												<div class="job_descp">
 													<p> {{update.caption}} <a href="#" title="">view more</a></p>
+													{% if update.album_id %}
+													{% is_pfp update.album_id as pfp %}
+													{% if pfp %}
+													<img class="job_descp_img" caption="{{update.caption}}" id = "og-img-{{update.update_id}}" update_id = {{update.update_id}} src= "{% get_pfp profile.email %}" alt="">
+													{% else %}
+													<img class="job_descp_img" caption="{{update.caption}}" id = "og-img-{{update.update_id}}" update_id = {{update.update_id}} src= "../media/{{ profile.email }}/{{ update.album_id }}/{{ update.update_id }}.jpg" alt="">
+													{% endif %}
+													{% endif %}
+													<div id="modal-{{update.update_id}}" class="img-pops">
+														<span id="close-{{update.update_id}}" class="close">&times;</span>
+														<div>
+															<img class="img-pops-content" id="img-{{update.update_id}}">
+														</div>
+													</div>
 													<ul class="skill-tags">
 														{% if hashtags %}
 														{% for hash in hashtags %}
@@ -389,7 +435,33 @@
 												<div class="job-status-bar">
 														{% csrf_token %}
 														{% like_status update.update_id profile.email as like %}
+														{% if update.album_id %}
+
 														{% if like %}
+
+															<ul class="like-com active" id="{{update.update_id}}-main">
+															<li >
+																<a album_id="{{update.album_id}}" id = "unlike-switch{{update.update_id}}" class="like-button" status="liked" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" preliked = "1" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" album_id="{{update.album_id}}" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span id="{{update.update_id}}" album_id="{{update.album_id}}" class="likers" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" >{{ update.num_likes }}</span>
+															</li>
+															</ul>
+
+														{% else %}
+
+															<ul class="like-com" id="{{update.update_id}}-main">
+															<li >
+																<a album_id="{{update.album_id}}" id = "like-switch{{update.update_id}}" class="like-button" status="unliked" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" preliked = "0" ><i class="la la-heart" ></i> Like</a>
+																<img class="likers" album_id="{{update.album_id}}" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" src="{% static 'images/liked-img.png' %}" alt="">
+																<span id="{{update.update_id}}" album_id="{{update.album_id}}" class="likers" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" >{{ update.num_likes }}</span>
+															</li>
+															</ul>
+														{% endif %}
+
+														{% else %}
+
+														{% if like %}
+
 															<ul class="like-com active" id="{{update.update_id}}-main">
 															<li >
 																<a id = "unlike-switch{{update.update_id}}" class="like-button" status="liked" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" preliked = "1" ><i class="la la-heart" ></i> Like</a>
@@ -397,7 +469,9 @@
 																<span id="{{update.update_id}}" class="likers" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" >{{ update.num_likes }}</span>
 															</li>
 															</ul>
+
 														{% else %}
+
 															<ul class="like-com" id="{{update.update_id}}-main">
 															<li >
 																<a id = "like-switch{{update.update_id}}" class="like-button" status="unliked" update_id="{{update.update_id}}" likes = "{{ update.num_likes }}" preliked = "0" ><i class="la la-heart" ></i> Like</a>
@@ -406,7 +480,11 @@
 															</li>
 															</ul>
 														{% endif %}
+
+														{% endif %}
+
 														{% share_status update.update_id profile.email as share %}
+
 														{% if share %}
 														<a>
 															<i class="la la-eye"></i>
@@ -427,13 +505,6 @@
 											{% endfor %}
 											{% endif %}
 
-											<div class="process-comm">
-												<div class="spinner">
-													<div class="bounce1"></div>
-													<div class="bounce2"></div>
-													<div class="bounce3"></div>
-												</div>
-											</div><!--process-comm end-->
 										</div><!--posts-section end-->
 									</div><!--product-feed-tab end-->
 									<div class="product-feed-tab" id="info-dd">
@@ -503,12 +574,12 @@
 														{% firstof "1" as count %}
 														{% if album.name == "Profile Pictures" %}
 														<div id="albums" class="gallery_pt">
-															<img id = "imger" src=" media/{{ profile.email }}/{{ profile.email }}/{{ profile.email }}.jpg" alt="http://via.placeholder.com/271x174">
+															<img id = "imger" src="{% get_pfp profile.email %}" alt="http://via.placeholder.com/271x174">
 															<a id = "{{album.album_id}}" name = "{{album.name}}" href="#" title=""  ><img src="{% static 'images/all-out.png' %}" alt=""></a>
 														</div><!--gallery_pt end-->
 														{% else %}
 														<div id="albums" class="gallery_pt">
-															<img id = "imger" src=" media/{{ profile.email }}/{{ cover.album_id }}/{{ cover.update_id }}.jpg" alt="http://via.placeholder.com/271x174">
+															<img id = "imger" src=" ../media/{{ profile.email }}/{{ cover.album_id }}/{{ cover.update_id }}.jpg" alt="http://via.placeholder.com/271x174">
 															<a id = "{{album.album_id}}" name = "{{album.name}}" href="#" title=""  ><img src="{% static 'images/all-out.png' %}" alt=""></a>
 														</div><!--gallery_pt end-->
 														{% endif %}
@@ -553,9 +624,9 @@
 												{% if all_photos %}
 												{% for photo in all_photos %}
 												{% if photo.album.name == "Profile Pictures" %}
-												<li><a href="media/{{profile.email}}/{{profile.email}}/{{profile.email}}.jpg" target="_blank" title=""><img src="media/{{profile.email}}/{{profile.email}}/{{profile.email}}.jpg" alt=""></a></li>
+												<li><a href="{% get_pfp profile.email %}" target="_blank" title=""><img src="{% get_pfp profile.email %}" alt=""></a></li>
 												{% else %}
-												<li><a href="media/{{profile.email}}/{{photo.album_id}}/{{photo.update_id}}.jpg" target="_blank" title=""><img src="media/{{profile.email}}/{{photo.album_id}}/{{photo.update_id}}.jpg" alt=""></a></li>
+												<li><a href="../media/{{profile.email}}/{{photo.album_id}}/{{photo.update_id}}.jpg" target="_blank" title=""><img src="../media/{{profile.email}}/{{photo.album_id}}/{{photo.update_id}}.jpg" alt=""></a></li>
 												{% endif %}
 												{% endfor %}
 												{% endif %}
@@ -606,8 +677,8 @@
 				<form method = "post" enctype="multipart/form-data" >
 					{% csrf_token %}
 					{{ form.as_p }}
-					<button type="submit" class="save" name="make-image">Save</button>
-					<button type="submit" class="cancel" >Cancel</button>
+					<button type="submit" class="save" name= "make-album" >Save</button>
+					<button class="cancel" >Cancel</button>
 				</form>
 				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
 			</div>
@@ -617,7 +688,7 @@
 		<div class="following-popup pst-pj">
 			<div class="following-box">
 				<h3>Followings</h3>
-				<div id="load-followings" class="following-box-fields">
+				<div id="load-followings" class="following-box-fields" >
 
 				</div><!--following-box-fields end-->
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
@@ -662,7 +733,6 @@
 <script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
 <script type="text/javascript" src="{% static './js/script.js' %}"></script>
-<script src="http://localhost:35729/livereload.js">
 
 </script>
 </body>

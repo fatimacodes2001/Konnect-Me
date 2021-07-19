@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>WorkWise Html Template</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
+</head>
+
+
+<body class="sign-in">
+
+
+	<div class="wrapper">
+
+
+		<div class="sign-in-page">
+			<div class="signin-popup">
+				<div class="signin-pop">
+
+					<div class="row">
+
+						<div class="col-lg-6">
+
+							<div class="login-sec">
+								{% if messages %}
+								{% for message in messages %}
+								<div class="alert alert-danger" role="alert">
+									{{ message }}
+								</div>
+								{% endfor %}
+								{% endif %}
+
+
+
+
+								<!--Sign Up Tab-->
+								<div class="sign_in_sec current" id="tab-2">
+									<h3>Create Profile</h3>
+									<!--User Sign Up Tab-->
+									<div class="dff-tab current" id="tab-3">
+										<form method="POST" action="{% url 'create' %}">
+											{% csrf_token %}
+											<div class="row">
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<select name="gender" id="gender" style="width: 150px;"
+															required>
+															<option value="" disabled selected hidden>Gender
+															</option>
+															<option value="M">Male</option>
+															<option value="F">Female</option>
+															<option value="O">Other</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="birthday" name="birthday"
+															class="form-control" placeholder="Date of Birth"
+															onfocus="(this.type='date')" required/>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+
+														<textarea id="about" name="about" rows="4" cols="50"
+															placeholder="About You"
+															style="border:1px solid #e5e5e5; padding: 15px 15px 0 40px;"></textarea>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+
+														<textarea id="workprof" name="workprof" rows="2" cols="50"
+															placeholder="Work Profile"
+															style="border:1px solid #e5e5e5; padding: 15px 15px 0 40px;"></textarea>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<table style="border-spacing: 15px; border-collapse: separate;">
+															<tr>
+																<td>
+																	<div class="column">
+																		<input type="text" id="city" name="city"
+																			placeholder="City">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="state" name="state"
+																			placeholder="State">
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="school" name="school"
+															placeholder="High School">
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="ugrad" name="ugrad"
+															placeholder="Undergraduate">
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="pgrad" name="pgrad"
+															placeholder="Postgraduate">
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="edu" name="edu"
+															placeholder="Further Education">
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<h4>Interests</h4>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<table style="border-spacing: 20px; border-collapse: separate;">
+															<tr>
+																<td>
+																	<div class="column">
+																		<input type="text" id="interest1"
+																			name="interest1" style="width: 180px;"
+																			placeholder="Interest 1">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="interest2"
+																			name="interest2" style="width: 180px;"
+																			placeholder="Interest 2">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="interest3"
+																			name="interest3" style="width: 180px;"
+																			placeholder="Interest 3">
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<h4>Skills</h4>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<table style="border-spacing: 20px; border-collapse: separate;">
+															<tr>
+																<td>
+																	<div class="column">
+																		<input type="text" id="skill1" name="skill1"
+																			style="width: 180px;"
+																			placeholder="Skill 1">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="skill2" name="skill2"
+																			style="width: 180px;"
+																			placeholder="Skill 2">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="skill3" name="skill3"
+																			style="width: 180px;"
+																			placeholder="Skill 3">
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<button type="submit" value="submit">Get Started</button>
+												</div>
+
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!--login-sec end-->
+						</div>
+					</div>
+					<!--HERE-->
+				</div>
+				<!--signin-pop end-->
+			</div>
+			<!--signin-popup end-->
+			<div class="footy-sec">
+				<div class="container">
+					<ul>
+						<li><a href="#" title="">Help Center</a></li>
+						<li><a href="#" title="">Privacy Policy</a></li>
+						<li><a href="#" title="">Community Guidelines</a></li>
+						<li><a href="#" title="">Cookies Policy</a></li>
+						<li><a href="#" title="">Career</a></li>
+						<li><a href="#" title="">Forum</a></li>
+						<li><a href="#" title="">Language</a></li>
+						<li><a href="#" title="">Copyright Policy</a></li>
+					</ul>
+					<p><img src="{% static  'images/copy-icon.png'  %}" alt="">Copyright 2018</p>
+				</div>
+			</div>
+			<!--footy-sec end-->
+		</div>
+		<!--sign-in-page end-->
+
+
+	</div>
+	<!--theme-layout end-->
+
+
+
+	<script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/script.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/showpassword.js' %}"></script>
+</body>
+
+</html>

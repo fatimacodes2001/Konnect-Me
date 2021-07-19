@@ -1,29 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>WorkWise Html Template</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
+	<meta charset="UTF-8">
+	<title>WorkWise Html Template</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
 </head>
 
 
 <body class="sign-in">
-	
+
 
 	<div class="wrapper">
-		
 
 		<div class="sign-in-page">
 			<div class="signin-popup">
@@ -33,42 +33,68 @@
 							<div class="cmp-info">
 								<div class="cm-logo">
 									<img src="{% static  'images/cm-logo.png'  %}" alt="">
-									<p>Workwise,  is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
-								</div><!--cm-logo end-->	
-								<img src="{% static  'images/cm-main-img.png'  %}" alt="">			
-							</div><!--cmp-info end-->
+									<p>KonnectMe, is a global freelancing platform and social networking where businesses
+										and independent professionals connect and collaborate remotely</p>
+								</div>
+								<!--cm-logo end-->
+								<img src="{% static  'images/cm-main-img.png'  %}" alt="">
+							</div>
+							<!--cmp-info end-->
 						</div>
 						<div class="col-lg-6">
+
 							<div class="login-sec">
+								{% if messages %}
+								{% for message in messages %}
+								<div class="alert alert-danger" role="alert">
+									{{ message }}
+								</div>
+								{% endfor %}
+								{% endif %}
 								<ul class="sign-control">
 
+									<!--Tabs-->
+									<li data-tab="tab-1" class="current"><a href="{%url 'login'%}" title="">Sign In</a>
+									</li>
+									<li data-tab="tab-2"><a href="{% url 'signup' %}" title="">Sign Up</a></li>
+								</ul>
 
-
-									<li data-tab="tab-1" class="current"><a href="{%url 'login'%}" title="">Sign in</a></li>				
-									<li data-tab="tab-2"><a href="{%url 'signup'%}" title="">Sign up</a></li>				
-								</ul>			
+								<!--Sign In Tab-->
 								<div class="sign_in_sec current" id="tab-1">
-									
-									<h3>Sign in</h3>
 
-
-
+									<h3>Sign In</h3>
 
 									<form method="POST" action="{%url 'feed'%}">
 										{% csrf_token %}
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="text" name="email" placeholder="Email">
+													<input type="text" name="emailin" placeholder="Email" required>
 													<i class="la la-user"></i>
-												</div><!--sn-field end-->
+												</div>
+												<!--sn-field end-->
 											</div>
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="password" name="password" placeholder="Password">
+													<input type="password" name="passwordin" id="password2"
+														placeholder="Password" required>
 													<i class="la la-lock"></i>
 												</div>
 											</div>
+
+											<div class="col-lg-12 no-pdd">
+												<div class="checky-sec">
+													<div class="fgt-sec">
+														<input type="checkbox" name="sp" id="sp2"
+															onclick="showPassword2()">
+														<label for="sp2">
+															<span></span>
+														</label>
+														<small>Show Password</small>
+													</div>
+												</div>
+											</div>
+
 											<div class="col-lg-12 no-pdd">
 												<div class="checky-sec">
 													<div class="fgt-sec">
@@ -77,66 +103,84 @@
 															<span></span>
 														</label>
 														<small>Remember me</small>
-													</div><!--fgt-sec end-->
+													</div>
+													<!--fgt-sec end-->
 													<a href="#" title="">Forgot Password?</a>
 												</div>
 											</div>
+
 											<div class="col-lg-12 no-pdd">
 												<button type="submit" value="submit">Sign in</button>
 											</div>
 										</div>
 									</form>
+								</div>
+								<!--Sign In End-->
 
-
-
-
-									
-								</div><!--sign_in_sec end-->
+								<!--Sign Up Tab-->
 								<div class="sign_in_sec" id="tab-2">
 									<div class="signup-tab">
-										<i class="fa fa-long-arrow-left"></i>
-										<h2>johndoe@example.com</h2>
+										<h2>Type</h2>
 										<ul>
 											<li data-tab="tab-3" class="current"><a href="#" title="">User</a></li>
 											<li data-tab="tab-4"><a href="#" title="">Company</a></li>
 										</ul>
-									</div><!--signup-tab end-->	
+									</div>
+
+									<!--User Sign Up Tab-->
 									<div class="dff-tab current" id="tab-3">
-										<form>
+										<form method="POST" action="{% url 'signup' %}">
+											{% csrf_token %}
 											<div class="row">
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="name" placeholder="Full Name">
+														<input type="text" name="name" placeholder="Name" required>
 														<i class="la la-user"></i>
 													</div>
 												</div>
+
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="country" placeholder="Address">
+														<input type="text" name="email" placeholder="Email" required>
 														<i class="la la-globe"></i>
 													</div>
 												</div>
+
+
+
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<select>
-															<option>Category</option>
-														</select>
-														<i class="la la-dropbox"></i>
-														<span><i class="fa fa-ellipsis-h"></i></span>
-													</div>
-												</div>
-												<div class="col-lg-12 no-pdd">
-													<div class="sn-field">
-														<input type="password" name="password" placeholder="Password">
+														<input type="password" name="password" id="password"
+															placeholder="Password" pattern="(?=.*\d)(?=.*[a-z]).{8,32}"
+															title="Password must be 8 to 32 characters and contain atleast one letter and digit."
+															required>
 														<i class="la la-lock"></i>
 													</div>
 												</div>
+
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="password" name="repeat-password" placeholder="Repeat Password">
+														<input type="password" name="confirm-password"
+															id="confirm-password" placeholder="Confirm Password"
+															required>
 														<i class="la la-lock"></i>
 													</div>
 												</div>
+
+
+												<div class="col-lg-12 no-pdd">
+													<div class="checky-sec">
+														<div class="fgt-sec">
+															<input type="checkbox" name="sp" id="sp"
+																onclick="showPassword()">
+															<label for="sp">
+																<span></span>
+															</label>
+															<small>Show Password</small>
+														</div>
+													</div>
+												</div>
+
 												<div class="col-lg-12 no-pdd">
 													<div class="checky-sec st2">
 														<div class="fgt-sec">
@@ -144,43 +188,69 @@
 															<label for="c2">
 																<span></span>
 															</label>
-															<small>Yes, I understand and agree to the workwise Terms & Conditions.</small>
-														</div><!--fgt-sec end-->
+															<small>Yes, I understand and agree to the workwise Terms &
+																Conditions.</small>
+														</div>
+														<!--fgt-sec end-->
 													</div>
 												</div>
+
 												<div class="col-lg-12 no-pdd">
 													<button type="submit" value="submit">Get Started</button>
 												</div>
+
 											</div>
 										</form>
-									</div><!--dff-tab end-->
+									</div>
+									<!--Page Sign Up Tab-->
 									<div class="dff-tab" id="tab-4">
-										<form>
+										<form method="POST" action="{%url 'signup2'%}">
+											{% csrf_token %}
 											<div class="row">
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="company-name" placeholder="Company Name">
+														<input type="text" name="company-name"
+															placeholder="Company Name" required>
 														<i class="la la-building"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="text" name="country" placeholder="Country">
+														<input type="text" name="email" placeholder="Email" required>
 														<i class="la la-globe"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="password" name="password" placeholder="Password">
+														<input type="password" name="password" id="password3"
+															placeholder="Password" pattern="(?=.*\d)(?=.*[a-z]).{8,32}"
+															title="Password must be 8 to 32 characters and contain atleast one letter and digit."
+															required>
 														<i class="la la-lock"></i>
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
 													<div class="sn-field">
-														<input type="password" name="repeat-password" placeholder="Repeat Password">
+														<input type="password" name="confirm-password"
+															id="confirm-password2" placeholder="Confirm Password"
+															required>
 														<i class="la la-lock"></i>
 													</div>
 												</div>
+
+												<div class="col-lg-12 no-pdd">
+													<div class="checky-sec">
+														<div class="fgt-sec">
+															<input type="checkbox" name="sp" id="sp3"
+																onclick="showPassword3()">
+															<label for="sp3">
+																<span></span>
+															</label>
+															<small>Show Password</small>
+														</div>
+													</div>
+												</div>
+
 												<div class="col-lg-12 no-pdd">
 													<div class="checky-sec st2">
 														<div class="fgt-sec">
@@ -188,8 +258,10 @@
 															<label for="c3">
 																<span></span>
 															</label>
-															<small>Yes, I understand and agree to the workwise Terms & Conditions.</small>
-														</div><!--fgt-sec end-->
+															<small>Yes, I understand and agree to the workwise Terms &
+																Conditions.</small>
+														</div>
+														<!--fgt-sec end-->
 													</div>
 												</div>
 												<div class="col-lg-12 no-pdd">
@@ -197,13 +269,17 @@
 												</div>
 											</div>
 										</form>
-									</div><!--dff-tab end-->
-								</div>		
-							</div><!--login-sec end-->
+									</div>
+									<!--dff-tab end-->
+								</div>
+							</div>
+							<!--login-sec end-->
 						</div>
-					</div>		
-				</div><!--signin-pop end-->
-			</div><!--signin-popup end-->
+					</div>
+				</div>
+				<!--signin-pop end-->
+			</div>
+			<!--signin-popup end-->
 			<div class="footy-sec">
 				<div class="container">
 					<ul>
@@ -218,18 +294,23 @@
 					</ul>
 					<p><img src="{% static  'images/copy-icon.png'  %}" alt="">Copyright 2018</p>
 				</div>
-			</div><!--footy-sec end-->
-		</div><!--sign-in-page end-->
+			</div>
+			<!--footy-sec end-->
+		</div>
+		<!--sign-in-page end-->
 
 
-	</div><!--theme-layout end-->
+	</div>
+	<!--theme-layout end-->
 
 
 
-<script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static './js/popper.js' %}"></script>
-<script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
-<script type="text/javascript" src="{% static './js/script.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/script.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/showpassword.js' %}"></script>
 </body>
+
 </html>

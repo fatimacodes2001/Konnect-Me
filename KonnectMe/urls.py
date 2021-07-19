@@ -25,11 +25,15 @@ urlpatterns = [
     path('',views.welcome,name='welcome'),
     path('login',views.login,name = 'login'),
     path('feed',views.feed,name = 'feed'),
-    path('login',views.signup,name = 'signup'),
+    path('signup',views.signup,name = 'signup'),
     path('application/',include("application.urls"),),
     path('signup_two',views.signup_two,name = 'signup_two'),
     path('index',views.index,name = 'index'),
     path('profile',views.profile,name = 'profile'),
+    path('page',views.page,name = 'page'),
+    path('profile/<str:visit_email>',views.visit_profile,name = 'visit_profile'),
+    path('page/<str:visit_email>',views.visit_page,name = 'visit_page'),
+
 ]
 
 if settings.DEBUG:

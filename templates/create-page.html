@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>WorkWise Html Template</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
+</head>
+
+
+<body class="sign-in">
+
+
+	<div class="wrapper">
+
+
+		<div class="sign-in-page">
+			<div class="signin-popup">
+				<div class="signin-pop">
+
+					<div class="row">
+
+						<div class="col-lg-6">
+
+							<div class="login-sec">
+								{% if messages %}
+								{% for message in messages %}
+								<div class="alert alert-danger" role="alert">
+									{{ message }}
+								</div>
+								{% endfor %}
+								{% endif %}
+
+
+
+
+								<!--Sign Up Tab-->
+								<div class="sign_in_sec current" id="tab-2">
+									<h3>Create Page</h3>
+									<!--User Sign Up Tab-->
+									<div class="dff-tab current" id="tab-3">
+										<form method="POST" action="{% url 'createpage' %}">
+											{% csrf_token %}
+											<div class="row">
+
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" id="type" name="type"
+															placeholder="Company Type">
+													</div>
+												</div>
+
+											
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<textarea id="about" name="about" rows="4" cols="50"
+															placeholder="About Us"
+															style="border:1px solid #e5e5e5; padding: 15px 15px 0 40px;"></textarea>
+													</div>
+												</div>
+
+											
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<table style="border-spacing: 15px; border-collapse: separate;">
+															<tr>
+																<td>
+																	<div class="column">
+																		<input type="text" id="city" name="city"
+																			placeholder="City">
+																	</div>
+																</td>
+
+																<td>
+																	<div class="column">
+																		<input type="text" id="state" name="state"
+																			placeholder="State">
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+
+												<div class="col-lg-12 no-pdd">
+													<button type="submit" value="submit">Get Started</button>
+												</div>
+
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!--login-sec end-->
+						</div>
+					</div>
+					<!--HERE-->
+				</div>
+				<!--signin-pop end-->
+			</div>
+			<!--signin-popup end-->
+			<div class="footy-sec">
+				<div class="container">
+					<ul>
+						<li><a href="#" title="">Help Center</a></li>
+						<li><a href="#" title="">Privacy Policy</a></li>
+						<li><a href="#" title="">Community Guidelines</a></li>
+						<li><a href="#" title="">Cookies Policy</a></li>
+						<li><a href="#" title="">Career</a></li>
+						<li><a href="#" title="">Forum</a></li>
+						<li><a href="#" title="">Language</a></li>
+						<li><a href="#" title="">Copyright Policy</a></li>
+					</ul>
+					<p><img src="{% static  'images/copy-icon.png'  %}" alt="">Copyright 2018</p>
+				</div>
+			</div>
+			<!--footy-sec end-->
+		</div>
+		<!--sign-in-page end-->
+
+
+	</div>
+	<!--theme-layout end-->
+
+
+
+	<script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/script.js' %}"></script>
+	<script type="text/javascript" src="{% static './js/showpassword.js' %}"></script>
+</body>
+
+</html>

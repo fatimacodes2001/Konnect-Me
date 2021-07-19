@@ -1,13 +1,120 @@
 {% load static %}
 {% load share_tag %}
 
+{% if og %}
+
+<div class="suggestions-list">
+  {% if followings %}
+  {% for following in followings %}
+
+  {% csrf_token %}
+  {% is_profile following as isprofile %}
+  {% is_page following as ispage %}
+  {% is_self following.email og.email as isself %}
+  {% if following in og_followings %}
+
+  {% if isprofile %}
+  <!-- Code for people who you have followed -->
+  <div class="suggestion-usd" id="div-{% get_follower_profile_id following.email %}" href = "{{type}}/{{following.email}}" >
+
+    <img src="{% get_pfp_mini following.email %}" alt="">
+    <!-- <img src="media/{{followed_follower.followed_profile_email.email}}/{{followed_follower.followed_profile_email.email}}/{{followed_followed.followed_profile_email.email}}.jpg" alt=""> -->
+    <div class="sgt-text">
+
+      <h4>{{ following.firstname }}{{ following.lastname }}</h4>
+
+      <span>{{ following.work_profile }}</span>
+    </div>
+
+    <span><i id="{% get_following_profile_id following.email %}" type="profile" followed-email = "{{following.email}}" class="la la-minus"></i></span>
+
+  </div>
+
+  {% elif ispage %}
+  <div class="suggestion-usd" id = "div-{% get_follower_page_id following.email %}" href = "{{type}}/{{following.email}}" >
+
+    <img src="{% get_pfp_mini following.email %}" alt="">
+    <!-- <img src="media/{{followed_follower.followed_profile_email.email}}/{{followed_follower.followed_profile_email.email}}/{{followed_followed.followed_profile_email.email}}.jpg" alt=""> -->
+    <div class="sgt-text">
+
+      <h4>{{ following.title }}</h4>
+
+      <span>{{ following.companytype }}</span>
+    </div>
+    <span><i id="{% get_following_page_id following.email %}" type="page" followed-email = "{{following.email}}" class="la la-minus"></i></span>
+
+  </div>
+
+  {% endif %}
+  {% endif %}
+
+  {% if following in og_non_followings %}
+
+    {% if isself %}
+
+      {% if isprofile %}
+        <div class="suggestion-usd" href = "{{type}}">
+          <img src="{% get_pfp_mini following.email %}" alt="" >
+          <div class="sgt-text">
+            <h4>{{ following.firstname }} {{ following.lastname }}</h4>
+            <span>{{ following.work_profile }}</span>
+          </div>
+        </div>
+      {% elif ispage %}
+      <div class="suggestion-usd" href = "{{type}}" >
+        <img src="{% get_pfp_mini following.email %}" alt="" >
+        <div class="sgt-text">
+          <h4>{{ following.title }}</h4>
+          <span>{{ following.companytype }}</span>
+        </div>
+      </div>
+
+      {% endif %}
+
+
+    {% else %}
+
+      {% if isprofile %}
+        <div class="suggestion-usd">
+          <img src="{% get_pfp_mini following.email %}" alt="" href = "{{type}}/{{following.email}}" >
+          <div class="sgt-text">
+            <h4>{{ following.firstname }} {{ following.lastname }}</h4>
+            <span>{{ following.work_profile }}</span>
+          </div>
+            <span><i id="{% get_un_following_profile_id following.email %}" type="profile" followed-email = "{{following.email}}" class="la la-plus"></i></span>
+        </div>
+      {% elif ispage %}
+      <div class="suggestion-usd">
+        <img src="{% get_pfp_mini following.email %}" alt="" href = "{{type}}/{{following.email}}" >
+        <div class="sgt-text">
+          <h4>{{ following.title }}</h4>
+          <span>{{ following.companytype }}</span>
+        </div>
+          <span><i id="{% get_un_following_page_id following.email %}" type="page" followed-email = "{{following.email}}"  class="la la-plus"></i></span>
+      </div>
+
+      {% endif %}
+
+    {% endif %}
+
+  {% endif %}
+
+  {% endfor %}
+  {% endif %}
+
+</div><!--suggestions-list end-->
+
+
+
+{% elif profile %}
+
 <div class="suggestions-list">
   {% if followings %}
   {% for following in followings %}
   {% is_profile following as isprofile %}
   {% is_page following as ispage %}
   {% if isprofile %}
-  <div class="suggestion-usd" id="div-{% get_un_following_profile_id following.followed_profile_email.email %}" >
+  <div class="suggestion-usd" href = "profile/{{following.followed_profile_email.email}}" id="div-{% get_un_following_profile_id following.followed_profile_email.email %}" >
     <img src="media/{{following.followed_profile_email.email}}/{{ following.followed_profile_email.email }}/{{ following.followed_profile_email.email }}35.jpg" alt="">
     <div class="sgt-text">
       <h4>{{ following.followed_profile_email.firstname }} {{ following.followed_profile_email.lastname }}</h4>
@@ -16,7 +123,7 @@
     <span><i  id="{% get_un_following_profile_id following.followed_profile_email.email %}" type="profile" followed-email = "{{following.followed_profile_email.email}}" class="la la-minus"></i></span>
   </div>
   {% elif ispage %}
-  <div class="suggestion-usd" id="div-{% get_un_following_page_id following.page_email.email %}" >
+  <div class="suggestion-usd" href = "profile/{{following.page_email.email}}" id="div-{% get_un_following_page_id following.page_email.email %}" >
     <img src="media/{{following.page_email.email}}/{{ following.page_email.email }}/{{ following.page_email.email }}35.jpg" alt="">
     <div class="sgt-text">
       <h4>{{ following.page_email.title }}</h4>
@@ -27,11 +134,43 @@
   {% endif %}
   {% endfor %}
   {% endif %}
+</div><!--suggestions-list end-->
+
+
+{% elif page %}
+
+<div class="suggestions-list">
+  {% if followings %}
+  {% for following in followings %}
+  {% is_profile following as isprofile %}
+  {% is_page following as ispage %}
+  {% if ispage %}
+  <div class="suggestion-usd" href = "page/{{following.followed_profile_email.email}}" id="div-{% get_un_following_profile_id following.followed_profile_email.email %}" >
+    <img src="media/{{following.followed_profile_email.email}}/{{ following.followed_profile_email.email }}/{{ following.followed_profile_email.email }}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ following.followed_profile_email.firstname }} {{ following.followed_profile_email.lastname }}</h4>
+      <span>{{ following.followed_profile_email.work_profile }}</span>
+    </div>
+    <span><i  id="{% get_un_following_profile_id following.followed_profile_email.email %}" type="profile" followed-email = "{{following.followed_profile_email.email}}" class="la la-minus"></i></span>
+  </div>
+  {% elif isprofile %}
+  <div class="suggestion-usd" href = "page/{{following.followed_page_email.email}}" id="div-{% get_un_following_page_id following.followed_page_email.email %}" >
+    <img src="media/{{following.followed_page_email.email}}/{{ following.followed_page_email.email }}/{{ following.followed_page_email.email }}35.jpg" alt="">
+    <div class="sgt-text">
+      <h4>{{ following.followed_page_email.title }}</h4>
+      <span>{{ following.followed_page_email.companytype }}</span>
+    </div>
+    <span><i  id="{% get_un_following_page_id following.followed_page_email.email %}" type="page" followed-email = "{{following.followed_page_email.email}}" class="la la-minus"></i></span>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</div><!--suggestions-list end-->
+
+{% endif %}
 
   <script type="text/javascript" src="{% static './js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static './js/popper.js' %}"></script>
   <script type="text/javascript" src="{% static './js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static './lib/slick/slick.min.js' %}"></script>
   <script type="text/javascript" src="{% static './js/script.js' %}"></script>
-
-</div><!--suggestions-list end-->

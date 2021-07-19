@@ -1,0 +1,231 @@
+{% load static %}
+{% load custom_tags %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>KonnectMe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="{% static './css/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/line-awesome-font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/jquery.mCustomScrollbar.min.css' %">
+<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './lib/slick/slick-theme.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static './css/responsive.css' %}">
+</head>
+
+
+<body>
+	
+
+	<div class="wrapper">
+		
+
+
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<div class="logo">
+						<a href="{%url 'feed'%}" title=""><img src="{% static 'images/logo.png'  %}" alt=""></a>
+                    </div><!--logo end-->
+                    <div class="search-bar">
+						
+						
+						<form method="POST" action="{%url 'search'%}">
+                            {% csrf_token %}
+							<input type="text" name="mainsearch" placeholder="Search...">
+							<button type="submit"><i class="la la-search"></i></button>
+                        </form>
+
+
+					</div><!--search-bar end-->
+					
+					<nav>
+						<ul>
+							<li>
+								<a href="{%url 'feed'%}" title="">
+									<span><img src="{% static 'images/icon1.png'  %}" alt=""></span>
+									Home
+								</a>
+							</li>
+							
+						
+
+							<li>
+								<a href="#" title="">
+									<span><img src="{% static 'images/icon4.png'  %}" alt=""></span>
+									Profiles
+								</a>
+								<ul>
+									<li><a href="{%url 'page'%}" title="">User Profile</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="{%url 'jobs'%}" title="">
+									<span><img src="{% static 'images/icon5.png'  %}" alt=""></span>
+									My Jobs
+								</a>
+							</li>
+							
+
+
+							
+							
+						</ul>
+					</nav><!--nav end-->
+					<div class="menu-btn">
+						<a href="#" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="media/{{pg.email}}/{{pg.email}}/{{pg.email}}35.jpg" alt="">
+							<a href="#" title="">{{name}}</a>
+							<i class="la la-sort-down"></i>
+						</div>
+						<div class="user-account-settingss">
+							
+								
+
+							<h3>Setting</h3>
+							<ul class="us-links">
+								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
+						
+							</ul>
+							<h3 class="tc"><a href="sign-in.html" title="">Logout</a></h3>
+						</div><!--user-account-settingss end-->
+					</div>
+				</div><!--header-data end-->
+			</div>
+		</header><!--header end-->
+
+\
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3">
+								
+
+
+
+
+
+							</div>
+							<div class="col-lg-6">
+								<div class="main-ws-sec">
+									<div class="posts-section">
+										
+												
+
+
+										{% for job in jobs %}
+
+										<div class="post-bar">
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="media/{{job.page_email.email}}/{{job.page_email.email}}/{{job.page_email.email}}35.jpg" alt="">
+													<div class="usy-name">
+														<h3>{{ page|get_item:job.page_email }}</h3>
+														<span><img src="{% static 'images/clock.png'  %}" alt="">{{job.postdate}}</span>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<form method = "POST" action="{%url 'deletejob'%}">
+															{% csrf_token %}
+														<li><button type="submit" name="deleteid" value="{{job.job_id}}">Delete Job</button></li>
+
+													</form>
+
+													</ul>
+												</div>
+											</div>
+											<div class="epi-sec">
+												<ul class="descp">
+													
+													<li><img src="{% static 'images/icon9.png'  %}" alt=""><span>{{job.city}},{{job.state}}</span></li>
+												</ul>
+												
+											</div>
+											<div class="job_descp">
+												<h3>{{job.type}}</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">{{job.num_hours}} hours</a></li>
+													<li><span>${{job.salary}} / hr</span></li>
+												</ul>
+                                                <p> {{job.description}} </p>
+                                                
+                                                <h3>Applicants</h3>
+
+												<ul class="skill-tags">
+                                                    {% if applies|get_item:job.job_id %}
+
+                                                    {% for person in job|apply %}
+                                                    <li><a href="#" title="">{{ person.email }}</a></li>
+                                                    {% endfor %}
+													
+                                                    
+                                                    {% endif %}
+                                                    
+                                                </ul>
+
+                                                
+											</div>
+											
+											
+
+                                        </div><!--posty end-->
+                               
+                                        
+                                        
+
+                                    </div><!--posts-section end-->
+                                    
+                                    {% endfor %}
+								</div><!--main-ws-sec end-->
+							</div>
+							<div class="col-lg-3">
+								<div class="right-sidebar">
+									
+									
+
+
+
+						</div>
+					</div><!-- main-section-data end-->
+				</div> 
+			</div>
+		</main>
+
+
+
+
+		
+
+		
+
+
+	</div><!--theme-layout end-->
+
+
+
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.mCustomScrollbar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'lib/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/scrollbar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
